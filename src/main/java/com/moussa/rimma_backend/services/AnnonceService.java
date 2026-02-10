@@ -12,5 +12,7 @@ public interface AnnonceService {
 
     Annonce modifierAnnonce(Long annonceId, Annonce annonce);
 
-    void desactiverAnnonce(Long annonceId);
+    Annonce desactiverAnnonce(Long annonceId);
+
+    Annonce activerAnnonce(Long annonceId);
 }

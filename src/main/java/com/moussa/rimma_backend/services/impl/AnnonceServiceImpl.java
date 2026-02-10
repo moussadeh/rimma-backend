@@ -1,10 +1,13 @@
 package com.moussa.rimma_backend.services.impl;
 
+import com.moussa.rimma_backend.exceptions.AnnonceNotFoundException;
+import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Annonce;
+import com.moussa.rimma_backend.models.Utilisateur;
+import com.moussa.rimma_backend.models.enums.StatutType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.AnnonceService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,22 +24,60 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     @Override
-    public List<Annonce> getAnnoncesByUtilisateur(Long utilisateurId) {
-        return List.of();
+    public List<Annonce> getAnnoncesByUtilisateur(Long id) {
+        Utilisateur utilisateur = utilisateurRepository.findById(id)
+                .orElseThrow(() -> new UtilisateurNotFoundException(id));
+
+        return annonceRepository.findByUtilisateurId(id);
     }
 
     @Override
-    public Annonce creerAnnonce(Long utilisateurId, Annonce annonce) {
-        return null;
+    public Annonce creerAnnonce(Long id, Annonce annonce) {
+        Utilisateur utilisateur = utilisateurRepository.findById(id)
+                .orElseThrow(() -> new UtilisateurNotFoundException(id));
+
+        annonce.setUtilisateur(utilisateur);
+        annonce.setActif(true);
+
+        return annonceRepository.save(annonce);
     }
 
     @Override
     public Annonce modifierAnnonce(Long annonceId, Annonce annonce) {
-        return null;
+        Annonce existingAnnonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+
+        existingAnnonce.setTitre(annonce.getTitre());
+        existingAnnonce.setDescription(annonce.getDescription());
+        existingAnnonce.setPrix(annonce.getPrix());
+        existingAnnonce.setVille(annonce.getVille());
+        existingAnnonce.setQuartier(annonce.getQuartier());
+        existingAnnonce.setStatut(annonce.getStatut());
+        existingAnnonce.setHebergement(annonce.getHebergement());
+        existingAnnonce.setActif(true);
+
+        return annonceRepository.save(existingAnnonce);
     }
 
     @Override
-    public void desactiverAnnonce(Long annonceId) {
+    public Annonce desactiverAnnonce(Long annonceId) {
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
 
+        annonce.setActif(false);
+        annonce.setStatut(StatutType.DESACTIVEE);
+
+        return annonceRepository.save(annonce);
+    }
+
+    @Override
+    public Annonce activerAnnonce(Long annonceId) {
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+
+        annonce.setActif(true);
+        annonce.setStatut(StatutType.ACTIVE);
+
+        return annonceRepository.save(annonce);
     }
 }
