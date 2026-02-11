@@ -1,6 +1,7 @@
 package com.moussa.rimma_backend.services.impl;
 
 import com.moussa.rimma_backend.exceptions.AnnonceNotFoundException;
+import com.moussa.rimma_backend.exceptions.ImageLimitException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Utilisateur;
@@ -36,8 +37,14 @@ public class AnnonceServiceImpl implements AnnonceService {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
                 .orElseThrow(() -> new UtilisateurNotFoundException(id));
 
+        if (annonce.getImages() == null || annonce.getImages().isEmpty() || annonce.getImages().size() > 10) {
+            throw new ImageLimitException();
+        }
+
         annonce.setUtilisateur(utilisateur);
         annonce.setActif(true);
+
+        annonce.getImages().forEach(image -> { image.setAnnonce(annonce); });
 
         return annonceRepository.save(annonce);
     }
@@ -55,6 +62,17 @@ public class AnnonceServiceImpl implements AnnonceService {
         existingAnnonce.setStatut(annonce.getStatut());
         existingAnnonce.setHebergement(annonce.getHebergement());
         existingAnnonce.setActif(true);
+
+        if (annonce.getImages() == null || annonce.getImages().isEmpty() || annonce.getImages().size() > 10) {
+            throw new ImageLimitException();
+        }
+
+        existingAnnonce.getImages().clear();
+
+        annonce.getImages().forEach(image -> {
+            image.setAnnonce(existingAnnonce);
+            existingAnnonce.getImages().add(image);
+        });
 
         return annonceRepository.save(existingAnnonce);
     }

@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -40,4 +42,7 @@ public class Annonce {
     @JoinColumn(name = "utilisateur_id")
     @JsonIgnore
     private Utilisateur utilisateur;
+
+    @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
 }
