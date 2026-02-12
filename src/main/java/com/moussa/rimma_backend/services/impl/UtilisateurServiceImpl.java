@@ -1,5 +1,6 @@
 package com.moussa.rimma_backend.services.impl;
 
+import com.moussa.rimma_backend.configurations.SecurityConfig;
 import com.moussa.rimma_backend.exceptions.EmailAlreadyUsedException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
@@ -26,8 +27,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         utilisateur.setActive(true);
 
-//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+        SecurityConfig securityConfig = new SecurityConfig();
+        utilisateur.setMotDePasse(securityConfig.passwordEncoder().encode(utilisateur.getMotDePasse()));
 
         return utilisateurRepository.save(utilisateur);
     }
