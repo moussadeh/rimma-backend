@@ -31,8 +31,8 @@ public class UtilisateurController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Utilisateur>  creerUtilisateur(@Valid @RequestBody Utilisateur utilisateur) {
-        return ResponseEntity.ok(utilisateurService.creerUtilisateur(utilisateur));
+    public ResponseEntity<Utilisateur>  creerUtilisateur(@Valid @RequestBody UtilisateurRequest utilisateurRequest) {
+        return ResponseEntity.ok(utilisateurService.creerUtilisateur(utilisateurRequest));
     }
 
     @PutMapping("/{id}")

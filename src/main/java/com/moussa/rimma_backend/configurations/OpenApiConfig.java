@@ -19,7 +19,7 @@ public class OpenApiConfig {
 
         return new OpenAPI()
                 .info(new Info()
-                        .title("Rimma API")
+                        .title("Rimma API Documentation")
                         .version("1.0")
                         .description("Backend pour l'application mobile RIMMA")
                         .contact(new Contact()

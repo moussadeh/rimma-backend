@@ -4,6 +4,7 @@ import com.moussa.rimma_backend.configurations.SecurityConfig;
 import com.moussa.rimma_backend.exceptions.EmailAlreadyUsedException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
+import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.UtilisateurService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,13 +24,19 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
-        if (utilisateurRepository.existsByEmail(utilisateur.getEmail())) {
-            throw new EmailAlreadyUsedException(utilisateur.getEmail());
+    public Utilisateur creerUtilisateur(UtilisateurRequest utilisateurRequest) {
+        if (utilisateurRepository.existsByEmail(utilisateurRequest.getEmail())) {
+            throw new EmailAlreadyUsedException(utilisateurRequest.getEmail());
         }
 
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setNom(utilisateurRequest.getNom());
+        utilisateur.setPrenom(utilisateurRequest.getPrenom());
+        utilisateur.setTelephone(utilisateurRequest.getTelephone());
+        utilisateur.setRole(utilisateurRequest.getRole());
+        utilisateur.setEmail(utilisateurRequest.getEmail());
         utilisateur.setActive(true);
-        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
+        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateurRequest.getMotDePasse()));
 
         return utilisateurRepository.save(utilisateur);
     }
