@@ -6,6 +6,7 @@ import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.UtilisateurService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.List;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository, PasswordEncoder passwordEncoder) {
         this.utilisateurRepository = utilisateurRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -26,9 +29,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
 
         utilisateur.setActive(true);
-
-        SecurityConfig securityConfig = new SecurityConfig();
-        utilisateur.setMotDePasse(securityConfig.passwordEncoder().encode(utilisateur.getMotDePasse()));
+        utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
 
         return utilisateurRepository.save(utilisateur);
     }
