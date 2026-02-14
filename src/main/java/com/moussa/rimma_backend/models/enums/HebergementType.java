@@ -1,7 +1,8 @@
 package com.moussa.rimma_backend.models.enums;
 
 public enum HebergementType {
-    LOGEMENT,
+    MAISON,
+    APPARTEMENT,
     BOUTIQUE,
     MAGASIN,
     TERRAIN

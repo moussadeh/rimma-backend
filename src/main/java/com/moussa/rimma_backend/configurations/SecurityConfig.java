@@ -3,7 +3,6 @@ package com.moussa.rimma_backend.configurations;
 import com.moussa.rimma_backend.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,7 +38,7 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/", "/v3/api-docs/**", "/swagger-ui/**", "/rimma/auth/**").permitAll()
+                    auth.requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/rimma/auth/**").permitAll()
                             .requestMatchers("/rimma/api/**").authenticated()
                             .anyRequest().authenticated();
                 })

@@ -15,7 +15,5 @@ public class UtilisateurRequest {
     private String telephone;
     private String email;
     private String motDePasse;
-
-    @Enumerated(EnumType.STRING)
     private RoleType role;
 }

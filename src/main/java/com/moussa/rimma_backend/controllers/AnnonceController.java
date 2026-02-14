@@ -1,8 +1,10 @@
 package com.moussa.rimma_backend.controllers;
 
 import com.moussa.rimma_backend.models.Annonce;
+import com.moussa.rimma_backend.models.dto.AnnonceRequest;
 import com.moussa.rimma_backend.services.AnnonceService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,24 +27,25 @@ public class AnnonceController {
 
     @PostMapping("/utilisateur/{id}")
     @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
-    public Annonce creerAnnonce(@PathVariable Long id, @Valid @RequestBody Annonce annonce){
-        return annonceService.creerAnnonce(id, annonce);
+    public ResponseEntity<Annonce> creerAnnonce(@PathVariable Long id, @Valid @RequestBody AnnonceRequest annonceRequest){
+        Annonce annonce = annonceService.creerAnnonce(id, annonceRequest);
+        return ResponseEntity.ok(annonce);
     }
 
     @PutMapping("/annonce/{id}")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
-    public Annonce modifierAnnonce(@PathVariable Long id, @Valid @RequestBody Annonce annonce){
-        return annonceService.modifierAnnonce(id, annonce);
+    @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
+    public Annonce modifierAnnonce(@PathVariable Long id, @Valid @RequestBody AnnonceRequest annonceRequest){
+        return annonceService.modifierAnnonce(id, annonceRequest);
     }
 
     @PatchMapping("/annonce/{id}/desactiver")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
+    @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
     public Annonce desactiverAnnonce(@PathVariable Long id){
         return annonceService.desactiverAnnonce(id);
     }
 
     @PatchMapping("/annonce/{id}/activer")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
+    @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
     public Annonce activerAnnonce(@PathVariable Long id){
         return annonceService.activerAnnonce(id);
     }
