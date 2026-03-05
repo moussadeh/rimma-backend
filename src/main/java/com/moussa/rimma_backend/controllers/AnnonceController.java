@@ -20,6 +20,11 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
+    @GetMapping
+    public List<Annonce> getAnnonces() {
+        return annonceService.getAnnonces();
+    }
+
     @GetMapping("/utilisateur/{id}")
     public List<Annonce> findAnnoncesByUtilisateur(@PathVariable Long id){
         return annonceService.getAnnoncesByUtilisateur(id);

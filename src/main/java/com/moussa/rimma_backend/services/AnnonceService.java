@@ -18,4 +18,6 @@ public interface AnnonceService {
     Annonce activerAnnonce(Long annonceId);
 
     boolean isOwner(Long annonceId, Long userId);
+
+    List<Annonce> getAnnonces();
 }

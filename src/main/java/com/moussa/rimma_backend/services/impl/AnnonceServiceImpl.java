@@ -130,4 +130,9 @@ public class AnnonceServiceImpl implements AnnonceService {
     public boolean isOwner(Long annonceId, Long userId) {
         return annonceRepository.existsByIdAndUtilisateurId(annonceId, userId);
     }
+
+    @Override
+    public List<Annonce> getAnnonces() {
+        return annonceRepository.findAll();
+    }
 }

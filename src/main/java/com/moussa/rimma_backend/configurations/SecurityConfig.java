@@ -3,6 +3,7 @@ package com.moussa.rimma_backend.configurations;
 import com.moussa.rimma_backend.security.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,7 +40,10 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/rimma/auth/**").permitAll()
-                            .requestMatchers("/rimma/api/**").authenticated()
+                            .requestMatchers(HttpMethod.GET, "/rimma/api/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/rimma/api/**").authenticated()
+                            .requestMatchers(HttpMethod.PUT, "/rimma/api/**").authenticated()
+                            .requestMatchers(HttpMethod.PATCH, "/rimma/api/**").authenticated()
                             .anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
