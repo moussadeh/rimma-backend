@@ -11,11 +11,14 @@ import com.moussa.rimma_backend.models.dto.RegisterResponse;
 import com.moussa.rimma_backend.models.enums.RoleType;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.security.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@Tag(name = "Authentification", description = "Gestion de l'authentification et de l'inscription des utilisateurs")
 @RestController
 @RequestMapping("/rimma/auth")
 public class AuthController {
@@ -30,6 +33,10 @@ public class AuthController {
         this.utilisateurRepository = utilisateurRepository;
     }
 
+    @Operation(
+            summary = "Authentification d'un utilisateur",
+            description = "Authentifie un utilisateur avec email et mot de passe. Retourne un token JWT si les identifiants sont valides."
+    )
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
         Utilisateur utilisateur = utilisateurRepository.findByEmail(request.getEmail())
@@ -44,6 +51,10 @@ public class AuthController {
         return new LoginResponse(token);
     }
 
+    @Operation(
+            summary = "Inscription d'un utilisateur",
+            description = "Permet de créer un nouveau compte utilisateur avec le rôle CLIENT. L'email doit être unique."
+    )
     @PostMapping("/register")
     public RegisterResponse register(@RequestBody RegisterRequest request) {
         if (utilisateurRepository.findByEmail(request.getEmail()).isPresent()) {

@@ -20,4 +20,8 @@ public interface AnnonceService {
     boolean isOwner(Long annonceId, Long userId);
 
     List<Annonce> getAnnonces();
+
+    Annonce validerAnnonce(Long annonceId);
+
+    Annonce invaliderAnnonce(Long annonceId);
 }

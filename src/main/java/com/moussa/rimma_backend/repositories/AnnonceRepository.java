@@ -17,5 +17,7 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
 
     List<Annonce> findByStatut(StatutType statut);
 
+    List<Annonce> findByValideTrue();
+
     boolean existsByIdAndUtilisateurId(Long id, Long utilisateurId);
 }

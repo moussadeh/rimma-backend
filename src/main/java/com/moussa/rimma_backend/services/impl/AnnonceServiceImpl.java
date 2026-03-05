@@ -133,6 +133,26 @@ public class AnnonceServiceImpl implements AnnonceService {
 
     @Override
     public List<Annonce> getAnnonces() {
-        return annonceRepository.findAll();
+        return annonceRepository.findByValideTrue();
+    }
+
+    @Override
+    public Annonce validerAnnonce(Long annonceId) {
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+
+        annonce.setValide(true);
+
+        return annonceRepository.save(annonce);
+    }
+
+    @Override
+    public Annonce invaliderAnnonce(Long annonceId) {
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+
+        annonce.setValide(true);
+
+        return annonceRepository.save(annonce);
     }
 }

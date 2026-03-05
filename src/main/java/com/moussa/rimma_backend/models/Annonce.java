@@ -29,6 +29,7 @@ public class Annonce {
     private String ville;
     private String quartier;
     private Boolean actif = Boolean.TRUE;
+    private Boolean valide = Boolean.FALSE;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
