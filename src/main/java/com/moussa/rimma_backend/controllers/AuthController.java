@@ -34,8 +34,7 @@ public class AuthController {
     }
 
     @Operation(
-            summary = "Authentification d'un utilisateur",
-            description = "Authentifie un utilisateur avec email et mot de passe. Retourne un token JWT si les identifiants sont valides."
+            summary = "Authentification d'un utilisateur => Authentifie un utilisateur avec email et mot de passe. Retourne un token JWT si les identifiants sont valides."
     )
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
@@ -52,8 +51,7 @@ public class AuthController {
     }
 
     @Operation(
-            summary = "Inscription d'un utilisateur",
-            description = "Permet de créer un nouveau compte utilisateur avec le rôle CLIENT. L'email doit être unique."
+            summary = "Inscription d'un utilisateur => Permet de créer un nouveau compte utilisateur avec le rôle CLIENT. L'email doit être unique."
     )
     @PostMapping("/register")
     public RegisterResponse register(@RequestBody RegisterRequest request) {

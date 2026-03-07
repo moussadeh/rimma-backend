@@ -24,8 +24,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Récupération de toutes les annonces valides",
-            description = "Retourne la liste de toutes les annonces actives (valid = true). Cette route est publique."
+            summary = "Récupération de toutes les annonces valides => Retourne la liste de toutes les annonces validées. Cette route est publique."
     )
     @GetMapping
     public List<Annonce> getAnnonces() {
@@ -33,8 +32,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Récupération des annonces d’un utilisateur",
-            description = "Retourne toutes les annonces associées à un utilisateur spécifique."
+            summary = "Récupération des annonces d’un utilisateur => Retourne toutes les annonces associées à un utilisateur spécifique."
     )
     @GetMapping("/utilisateur/{id}")
     public List<Annonce> findAnnoncesByUtilisateur(@PathVariable Long id){
@@ -42,8 +40,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Création d'une annonce",
-            description = "Permet à un utilisateur (CLIENT propriétaire ou ADMIN) de créer une nouvelle annonce."
+            summary = "Création d'une annonce => Permet à un utilisateur (CLIENT propriétaire ou ADMIN) de créer une nouvelle annonce."
     )
     @PostMapping("/utilisateur/{id}")
     @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
@@ -53,8 +50,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Modification d'une annonce",
-            description = "Permet au propriétaire de l’annonce ou à un ADMIN de modifier une annonce existante."
+            summary = "Modification d'une annonce => Permet au propriétaire de l’annonce ou à un ADMIN de modifier une annonce existante."
     )
     @PutMapping("/annonce/{id}")
     @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
@@ -63,8 +59,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Désactivation d'une annonce",
-            description = "Permet au propriétaire ou à un ADMIN de désactiver une annonce (elle ne sera plus visible publiquement)."
+            summary = "Désactivation d'une annonce => Permet au propriétaire ou à un ADMIN de désactiver une annonce (elle ne sera plus visible publiquement)"
     )
     @PatchMapping("/annonce/{id}/desactiver")
     @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
@@ -73,8 +68,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Activation d'une annonce",
-            description = "Permet au propriétaire ou à un ADMIN de réactiver une annonce."
+            summary = "Activation d'une annonce => Permet au propriétaire ou à un ADMIN de réactiver une annonce."
     )
     @PatchMapping("/annonce/{id}/activer")
     @PreAuthorize("hasRole('ADMIN') or @annonceService.isOwner(#id, principal.id)")
@@ -83,8 +77,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Invalidation d'une annonce",
-            description = "Permet à un ADMIN d'invalider une annonce créé."
+            summary = "Invalidation d'une annonce => Permet à un ADMIN d'invalider une annonce créé."
     )
     @PatchMapping("/annonce/{id}/invalider")
     @PreAuthorize("hasRole('ADMIN')")
@@ -93,8 +86,7 @@ public class AnnonceController {
     }
 
     @Operation(
-            summary = "Validation d'une annonce",
-            description = "Permet à un ADMIN de valider une annonce créé."
+            summary = "Validation d'une annonce => Permet à un ADMIN de valider une annonce créé."
     )
     @PatchMapping("/annonce/{id}/valider")
     @PreAuthorize("hasRole('ADMIN')")

@@ -22,8 +22,7 @@ public class UtilisateurController {
     private final UtilisateurService utilisateurService;
 
     @Operation(
-            summary = "Récupération de tous les utilisateurs",
-            description = "Retourne la liste complète des utilisateurs."
+            summary = "Récupération de tous les utilisateurs => Retourne la liste complète des utilisateurs."
     )
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -32,8 +31,7 @@ public class UtilisateurController {
     }
 
     @Operation(
-            summary = "Récupération d'un utilisateur par ID",
-            description = "Permet à un ADMIN ou au CLIENT propriétaire de consulter les informations d’un utilisateur."
+            summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN ou au CLIENT propriétaire de consulter les informations d’un utilisateur."
     )
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
@@ -42,8 +40,7 @@ public class UtilisateurController {
     }
 
     @Operation(
-            summary = "Création d'un utilisateur",
-            description = "Permet à un ADMIN de créer un nouvel utilisateur."
+            summary = "Création d'un utilisateur => Permet à un ADMIN de créer un nouvel utilisateur."
     )
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
@@ -52,8 +49,7 @@ public class UtilisateurController {
     }
 
     @Operation(
-            summary = "Modification d'un utilisateur",
-            description = "Permet à un ADMIN ou au CLIENT propriétaire de modifier les informations d’un utilisateur."
+            summary = "Modification d'un utilisateur => Permet à un ADMIN ou au CLIENT propriétaire de modifier les informations d’un utilisateur."
     )
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
@@ -62,8 +58,7 @@ public class UtilisateurController {
     }
 
     @Operation(
-            summary = "Suppression d'un utilisateur",
-            description = "Permet uniquement à un ADMIN de supprimer définitivement un utilisateur."
+            summary = "Suppression d'un utilisateur => Permet uniquement à un ADMIN de supprimer définitivement un utilisateur."
     )
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

@@ -23,8 +23,7 @@ public class ImageController {
     }
 
     @Operation(
-            summary = "Uploader des images",
-            description = "Permet d’uploader une ou plusieurs images vers Cloudinary. Retourne la liste des URLs générées après upload."
+            summary = "Uploader des images => Permet d’uploader une ou plusieurs images vers Cloudinary. Retourne la liste des URLs générées après upload."
     )
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<List<String>> uploadImages(@RequestPart("files") List<MultipartFile> files) throws IOException {
