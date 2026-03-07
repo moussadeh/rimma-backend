@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.services.impl;
 
 import com.moussa.rimma_backend.exceptions.AnnonceNotFoundException;
 import com.moussa.rimma_backend.exceptions.ImageLimitException;
+import com.moussa.rimma_backend.exceptions.SearchParamMissingException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Image;
@@ -31,7 +32,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public List<Annonce> getAnnoncesByUtilisateur(Long id) {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
-                .orElseThrow(() -> new UtilisateurNotFoundException(id));
+                .orElseThrow(() -> new UtilisateurNotFoundException());
 
         return annonceRepository.findByUtilisateurId(id);
     }
@@ -39,7 +40,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce creerAnnonce(Long id, AnnonceRequest annonceRequest) {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
-                .orElseThrow(() -> new UtilisateurNotFoundException(id));
+                .orElseThrow(() -> new UtilisateurNotFoundException());
 
         List<String> urls_images = annonceRequest.getImages();
 
@@ -75,7 +76,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce modifierAnnonce(Long annonceId, AnnonceRequest annonceRequest) {
         Annonce existingAnnonce = annonceRepository.findById(annonceId)
-                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+                .orElseThrow(() -> new AnnonceNotFoundException());
 
         existingAnnonce.setTitre(annonceRequest.getTitre());
         existingAnnonce.setDescription(annonceRequest.getDescription());
@@ -107,7 +108,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce desactiverAnnonce(Long annonceId) {
         Annonce annonce = annonceRepository.findById(annonceId)
-                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+                .orElseThrow(() -> new AnnonceNotFoundException());
 
         annonce.setActif(false);
         annonce.setStatut(StatutType.DESACTIVEE);
@@ -118,7 +119,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce activerAnnonce(Long annonceId) {
         Annonce annonce = annonceRepository.findById(annonceId)
-                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+                .orElseThrow(() -> new AnnonceNotFoundException());
 
         annonce.setActif(true);
         annonce.setStatut(StatutType.ACTIVE);
@@ -139,7 +140,7 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce validerAnnonce(Long annonceId) {
         Annonce annonce = annonceRepository.findById(annonceId)
-                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+                .orElseThrow(() -> new AnnonceNotFoundException());
 
         annonce.setValide(true);
 
@@ -149,10 +150,25 @@ public class AnnonceServiceImpl implements AnnonceService {
     @Override
     public Annonce invaliderAnnonce(Long annonceId) {
         Annonce annonce = annonceRepository.findById(annonceId)
-                .orElseThrow(() -> new AnnonceNotFoundException(annonceId));
+                .orElseThrow(() -> new AnnonceNotFoundException());
 
         annonce.setValide(true);
 
         return annonceRepository.save(annonce);
     }
+
+    @Override
+    public Annonce getAnnonceById(Long id) {
+        return annonceRepository.findById(id)
+                .orElseThrow(() -> new AnnonceNotFoundException());
+    }
+
+    @Override
+    public List<Annonce> searchAnnonces(String titre, String ville, String quartier) {
+        if ((titre == null || titre.isBlank()) && (ville == null || ville.isBlank()) && (quartier == null || quartier.isBlank()))
+            throw new SearchParamMissingException();
+
+        return annonceRepository.searchAnnonces(titre, ville, quartier);
+    }
+
 }

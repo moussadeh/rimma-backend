@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.services;
 
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -24,4 +25,9 @@ public interface AnnonceService {
     Annonce validerAnnonce(Long annonceId);
 
     Annonce invaliderAnnonce(Long annonceId);
+
+    Annonce getAnnonceById(Long id);
+
+
+    List<Annonce> searchAnnonces(String titre, String ville, String quartier);
 }

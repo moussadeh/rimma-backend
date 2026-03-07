@@ -93,4 +93,24 @@ public class AnnonceController {
     public Annonce validerAnnonce(@PathVariable Long id){
         return annonceService.validerAnnonce(id);
     }
+
+    @GetMapping("/annonce/{id}")
+    @Operation(
+            summary = "Récupération d'une annonce => Retourne le détail d'une annonce spécifique."
+    )
+    public ResponseEntity<Annonce> getAnnonce(@PathVariable Long id){
+        return ResponseEntity.ok(annonceService.getAnnonceById(id));
+    }
+
+    @GetMapping("/search")
+    @Operation(
+            summary = "Recherche d'annonces => Permet la recherche d'annonces par titre, ville et quartier."
+    )
+    public ResponseEntity<List<Annonce>> searchAnnonces(
+            @RequestParam(required = false) String titre,
+            @RequestParam(required = false) String ville,
+            @RequestParam(required = false) String quartier
+    ) {
+        return ResponseEntity.ok(annonceService.searchAnnonces(titre, ville, quartier));
+    }
 }

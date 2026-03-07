@@ -63,7 +63,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Override
     public Utilisateur trouverParId(Long id) {
         return utilisateurRepository.findById(id)
-                .orElseThrow(() -> new UtilisateurNotFoundException(id));
+                .orElseThrow(() -> new UtilisateurNotFoundException());
     }
 
     @Override

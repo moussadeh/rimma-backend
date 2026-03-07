@@ -42,7 +42,7 @@ public class AuthController {
                 .orElseThrow(() -> new UtilisateurWithEmailNotFoundException(request.getEmail()));
 
         if (!passwordEncoder.matches(request.getMotDePasse(), utilisateur.getMotDePasse())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+            throw new IncorrectPasswordException();
         }
 
         String token = jwtService.generateToken(utilisateur);
