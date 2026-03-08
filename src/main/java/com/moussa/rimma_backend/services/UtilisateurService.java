@@ -16,4 +16,6 @@ public interface UtilisateurService {
     List<Utilisateur> trouverTous();
 
     void supprimerUtilisateur(Long id);
+
+    Utilisateur trouverParEmail(String email);
 }

@@ -65,6 +65,11 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
+    @ExceptionHandler(UtilisateurNonAuthentifieException.class)
+    public ResponseEntity<ErrorResponse> handleUtilisateurNonAuthentifieException(UtilisateurNonAuthentifieException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), request);
+    }
+
     // handler est déclenché quand Spring Security bloque une action par exemple @PreAuthorize
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {

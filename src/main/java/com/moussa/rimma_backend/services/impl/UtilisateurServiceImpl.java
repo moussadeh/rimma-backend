@@ -76,4 +76,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur utilisateur = trouverParId(id);
         utilisateurRepository.delete(utilisateur);
     }
+
+    @Override
+    public Utilisateur trouverParEmail(String email) {
+        return utilisateurRepository.findByEmail(email)
+                .orElseThrow(() -> new UtilisateurNotFoundException());
+    }
 }

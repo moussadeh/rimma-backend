@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,45 +22,50 @@ public class UtilisateurController {
 
     private final UtilisateurService utilisateurService;
 
-    @Operation(
-            summary = "Récupération de tous les utilisateurs => Retourne la liste complète des utilisateurs."
-    )
+    @Operation(summary = "Récupération de tous les utilisateurs => Retourne la liste complète des utilisateurs.")
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Utilisateur>> getAllUtilisateurs() {
         return ResponseEntity.ok(utilisateurService.trouverTous());
     }
 
-    @Operation(
-            summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN ou au CLIENT propriétaire de consulter les informations d’un utilisateur."
-    )
+//    @GetMapping("/me")
+//    @Operation(summary = "Utilisateur connecté => Retourne les informations de l'utilisateur authentifié.")
+//    public ResponseEntity<Utilisateur> getCurrentUser(Authentication authentication) {
+//        String email = authentication.getName();
+//        Utilisateur utilisateur = utilisateurService.trouverParEmail(email);
+//        return ResponseEntity.ok(utilisateur);
+//    }
+
+    @Operation(summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN de consulter les informations d’un utilisateur.")
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur> getUtilisateur(@PathVariable Long id) {
         return ResponseEntity.ok(utilisateurService.trouverParId(id));
     }
 
-    @Operation(
-            summary = "Création d'un utilisateur => Permet à un ADMIN de créer un nouvel utilisateur."
-    )
-    @PostMapping
+    @Operation(summary = "Création d'un utilisateur => Permet à un ADMIN de créer un nouvel utilisateur.")
+    @PostMapping("/creer")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur>  creerUtilisateur(@Valid @RequestBody UtilisateurRequest utilisateurRequest) {
         return ResponseEntity.ok(utilisateurService.creerUtilisateur(utilisateurRequest));
     }
 
-    @Operation(
-            summary = "Modification d'un utilisateur => Permet à un ADMIN ou au CLIENT propriétaire de modifier les informations d’un utilisateur."
-    )
+    @Operation(summary = "Modification d'un utilisateur => Permet à un CLIENT de modifier ces propres informations.")
+    @PutMapping("/me")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<Utilisateur> modifierUtilisateurByUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
+        return ResponseEntity.ok(utilisateurService.modifierUtilisateur(id, utilisateur));
+    }
+
+    @Operation(summary = "Modification d'un utilisateur => Permet à un ADMIN de modifier les informations d’un utilisateur.")
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('CLIENT') and #id == principal.id)")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur> modifierUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
         return ResponseEntity.ok(utilisateurService.modifierUtilisateur(id, utilisateur));
     }
 
-    @Operation(
-            summary = "Suppression d'un utilisateur => Permet uniquement à un ADMIN de supprimer définitivement un utilisateur."
-    )
+    @Operation(summary = "Suppression d'un utilisateur => Permet uniquement à un ADMIN de supprimer définitivement un utilisateur.")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur> supprimerUtilisateur(@PathVariable Long id) {

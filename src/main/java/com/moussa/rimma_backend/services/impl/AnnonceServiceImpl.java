@@ -10,7 +10,6 @@ import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
 import com.moussa.rimma_backend.models.enums.StatutType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
-import com.moussa.rimma_backend.repositories.ImageRepository;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.AnnonceService;
 import org.springframework.stereotype.Service;
