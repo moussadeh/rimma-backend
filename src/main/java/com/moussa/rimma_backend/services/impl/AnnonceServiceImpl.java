@@ -163,11 +163,11 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     @Override
-    public List<Annonce> searchAnnonces(String titre, String ville, String quartier) {
-        if ((titre == null || titre.isBlank()) && (ville == null || ville.isBlank()) && (quartier == null || quartier.isBlank()))
+    public List<Annonce> searchAnnonces(String query) {
+        if (query == null || query.isBlank())
             throw new SearchParamMissingException();
 
-        return annonceRepository.searchAnnonces(titre, ville, quartier);
+        return annonceRepository.searchAnnonces(query);
     }
 
 }

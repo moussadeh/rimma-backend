@@ -25,9 +25,12 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
     @Query("""
         SELECT a FROM Annonce a
         WHERE a.valide = true
-        AND (:titre IS NULL OR a.titre ILIKE %:titre%)
-        AND (:ville IS NULL OR a.ville ILIKE %:ville%)
-        AND (:quartier IS NULL OR a.quartier ILIKE %:quartier%)
+        AND (
+            a.titre ILIKE %:query%
+            OR a.ville ILIKE %:query%
+            OR a.quartier ILIKE %:query%
+            OR a.description ILIKE %:query%
+        )
     """)
-    List<Annonce> searchAnnonces(String titre, String ville, String quartier);
+    List<Annonce> searchAnnonces(String query);
 }

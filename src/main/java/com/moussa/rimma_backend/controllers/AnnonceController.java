@@ -56,15 +56,15 @@ public class AnnonceController {
         return annonceService.getAnnoncesByUtilisateur(id);
     }
 
-    @GetMapping("/search")
-    @Operation(summary = "Recherche d'annonces => Permet la recherche d'annonces par titre, ville et quartier.")
-    public ResponseEntity<List<Annonce>> searchAnnonces(
-            @RequestParam(required = false) String titre,
-            @RequestParam(required = false) String ville,
-            @RequestParam(required = false) String quartier
-    ) {
-        return ResponseEntity.ok(annonceService.searchAnnonces(titre, ville, quartier));
-    }
+//    @GetMapping("/search")
+//    @Operation(summary = "Recherche d'annonces => Permet la recherche d'annonces par titre, ville et quartier.")
+//    public ResponseEntity<List<Annonce>> searchAnnonces(
+//            @RequestParam(required = false) String titre,
+//            @RequestParam(required = false) String ville,
+//            @RequestParam(required = false) String quartier
+//    ) {
+//        return ResponseEntity.ok(annonceService.searchAnnonces(titre, ville, quartier));
+//    }
 
     @Operation(summary = "Modification d'une annonce => Permet au propriétaire de l’annonce ou à un ADMIN de modifier une annonce existante.")
     @PutMapping("/annonce/{id}")

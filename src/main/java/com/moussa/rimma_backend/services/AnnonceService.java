@@ -29,5 +29,5 @@ public interface AnnonceService {
     Annonce getAnnonceById(Long id);
 
 
-    List<Annonce> searchAnnonces(String titre, String ville, String quartier);
+    List<Annonce> searchAnnonces(String query);
 }
