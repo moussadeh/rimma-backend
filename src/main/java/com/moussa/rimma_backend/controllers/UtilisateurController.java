@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.controllers;
 
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
+import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
 import com.moussa.rimma_backend.services.UtilisateurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,13 +30,22 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.trouverTous());
     }
 
-//    @GetMapping("/me")
-//    @Operation(summary = "Utilisateur connecté => Retourne les informations de l'utilisateur authentifié.")
-//    public ResponseEntity<Utilisateur> getCurrentUser(Authentication authentication) {
-//        String email = authentication.getName();
-//        Utilisateur utilisateur = utilisateurService.trouverParEmail(email);
-//        return ResponseEntity.ok(utilisateur);
-//    }
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    @Operation(summary = "Utilisateur connecté => Retourne les informations de l'utilisateur authentifié.")
+    public ResponseEntity<UtilisateurResponse> getCurrentUser(Authentication authentication) {
+        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
+
+        UtilisateurResponse response = new UtilisateurResponse();
+        response.setNom(utilisateur.getNom());
+        response.setPrenom(utilisateur.getPrenom());
+        response.setEmail(utilisateur.getEmail());
+        response.setRole(utilisateur.getRole());
+        response.setTelephone(utilisateur.getTelephone());
+        response.setActive(utilisateur.getActive());
+
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN de consulter les informations d’un utilisateur.")
     @GetMapping("/{id}")

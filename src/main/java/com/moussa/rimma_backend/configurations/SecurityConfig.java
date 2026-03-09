@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/rimma/auth/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/rimma/api/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/rimma/api/utilisateurs/me").authenticated()
                             .requestMatchers(HttpMethod.POST, "/rimma/api/**").authenticated()
                             .requestMatchers(HttpMethod.PUT, "/rimma/api/**").authenticated()
                             .requestMatchers(HttpMethod.PATCH, "/rimma/api/**").authenticated()

@@ -49,7 +49,7 @@ public class AnnonceController {
         return ResponseEntity.ok(annonceService.getAnnoncesByUtilisateur(utilisateur.getId()));
     }
 
-    @Operation(summary = "Récupération des annonces d’un utilisateur => Permet à un admin toutes les annonces associées à un utilisateur spécifique.")
+    @Operation(summary = "Récupération des annonces d’un utilisateur => Permet à un ADMIN toutes les annonces associées à un utilisateur spécifique.")
     @GetMapping("/utilisateur/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Annonce> findAnnoncesByUtilisateur(@PathVariable Long id){
