@@ -170,4 +170,13 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.searchAnnonces(query);
     }
 
+    @Override
+    public List<Annonce> searchMyOwnAnnonces(Long userId, String query) {
+        if (query == null || query.isBlank()) {
+            throw new SearchParamMissingException();
+        }
+
+        return annonceRepository.searchMyOwnAnnonces(userId, query.trim());
+    }
+
 }

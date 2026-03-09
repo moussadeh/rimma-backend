@@ -33,4 +33,17 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
         )
     """)
     List<Annonce> searchAnnonces(String query);
+
+    @Query("""
+        SELECT a FROM Annonce a
+        WHERE a.utilisateur.id = :userId
+        AND (
+            a.titre ILIKE %:query%
+            OR a.ville ILIKE %:query%
+            OR a.quartier ILIKE %:query%
+            OR a.description ILIKE %:query%
+        )
+    """)
+    List<Annonce> searchMyOwnAnnonces(Long userId, String query);
+
 }

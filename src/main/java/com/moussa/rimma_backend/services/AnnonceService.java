@@ -30,4 +30,6 @@ public interface AnnonceService {
 
 
     List<Annonce> searchAnnonces(String query);
+
+    List<Annonce> searchMyOwnAnnonces(Long userId, String query);
 }
