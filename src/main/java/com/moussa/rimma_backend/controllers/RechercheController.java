@@ -48,5 +48,9 @@ public class RechercheController {
         return ResponseEntity.ok(annonceService.filterByHebergement(type_hebergement));
     }
 
-
+    @GetMapping("/filter/par/prix")
+    @Operation(summary = "Filtrer les annonces par intervalle de prix")
+    public ResponseEntity<List<Annonce>> filterByPrix(@RequestParam(required = false) Double minPrix, @RequestParam(required = false) Double maxPrix) {
+        return ResponseEntity.ok(annonceService.filterByPrix(minPrix, maxPrix));
+    }
 }

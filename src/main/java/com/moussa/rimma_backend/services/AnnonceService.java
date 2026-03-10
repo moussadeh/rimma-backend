@@ -35,4 +35,6 @@ public interface AnnonceService {
     List<Annonce> searchMyOwnAnnonces(Long userId, String query);
 
     List<Annonce> filterByHebergement(HebergementType type);
+
+    List<Annonce> filterByPrix(Double minPrix, Double maxPrix);
 }

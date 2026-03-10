@@ -48,4 +48,12 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
 
     List<Annonce> findByHebergementAndValideTrue(HebergementType type);
 
+    @Query("""
+        SELECT a FROM Annonce a
+        WHERE a.valide = true
+        AND (:minPrix IS NULL OR a.prix >= :minPrix)
+        AND (:maxPrix IS NULL OR a.prix <= :maxPrix)
+    """)
+    List<Annonce> filterByPrix(Double minPrix, Double maxPrix);
+
 }

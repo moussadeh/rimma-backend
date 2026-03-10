@@ -188,4 +188,12 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.findByHebergementAndValideTrue(type);
     }
 
+    @Override
+    public List<Annonce> filterByPrix(Double minPrix, Double maxPrix) {
+        if (minPrix == null && maxPrix == null) {
+            throw new IllegalArgumentException("Au moins un prix doit être fourni");
+        }
+        return annonceRepository.filterByPrix(minPrix, maxPrix);
+    }
+
 }
