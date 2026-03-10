@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.services;
 
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
+import com.moussa.rimma_backend.models.enums.HebergementType;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface AnnonceService {
     List<Annonce> searchAnnonces(String query);
 
     List<Annonce> searchMyOwnAnnonces(Long userId, String query);
+
+    List<Annonce> filterByHebergement(HebergementType type);
 }

@@ -8,6 +8,7 @@ import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Image;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
+import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.models.enums.StatutType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
@@ -177,6 +178,14 @@ public class AnnonceServiceImpl implements AnnonceService {
         }
 
         return annonceRepository.searchMyOwnAnnonces(userId, query.trim());
+    }
+
+    @Override
+    public List<Annonce> filterByHebergement(HebergementType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("Le type d'hébergement est requis");
+        }
+        return annonceRepository.findByHebergementAndValideTrue(type);
     }
 
 }

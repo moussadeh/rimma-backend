@@ -3,6 +3,7 @@ package com.moussa.rimma_backend.controllers;
 
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Utilisateur;
+import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.services.AnnonceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,4 +41,12 @@ public class RechercheController {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
         return ResponseEntity.ok(annonceService.searchMyOwnAnnonces(utilisateur.getId(), query));
     }
+
+    @GetMapping("/filter/par/hebergement")
+    @Operation(summary = "Filtrer les annonces par type d'hébergement")
+    public ResponseEntity<List<Annonce>> filterByHebergement(@RequestParam HebergementType type_hebergement) {
+        return ResponseEntity.ok(annonceService.filterByHebergement(type_hebergement));
+    }
+
+
 }

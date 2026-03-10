@@ -46,4 +46,6 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
     """)
     List<Annonce> searchMyOwnAnnonces(Long userId, String query);
 
+    List<Annonce> findByHebergementAndValideTrue(HebergementType type);
+
 }
