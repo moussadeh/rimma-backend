@@ -5,8 +5,11 @@ import com.moussa.rimma_backend.exceptions.EmailAlreadyUsedException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
+import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.UtilisateurService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -67,8 +70,18 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
-    public List<Utilisateur> trouverTous() {
-        return utilisateurRepository.findAll();
+    public Page<UtilisateurResponse> trouverTous(Pageable pageable) {
+        Page<Utilisateur> utilisateurs = utilisateurRepository.findAll(pageable);
+        return utilisateurs.map(utilisateur -> {
+            UtilisateurResponse response = new UtilisateurResponse();
+            response.setNom(utilisateur.getNom());
+            response.setPrenom(utilisateur.getPrenom());
+            response.setEmail(utilisateur.getEmail());
+            response.setTelephone(utilisateur.getTelephone());
+            response.setRole(utilisateur.getRole());
+            response.setActive(utilisateur.getActive());
+            return response;
+        });
     }
 
     @Override

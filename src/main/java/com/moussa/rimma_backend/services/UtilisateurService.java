@@ -2,6 +2,9 @@ package com.moussa.rimma_backend.services;
 
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
+import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -13,7 +16,9 @@ public interface UtilisateurService {
 
     Utilisateur trouverParId(Long id);
 
-    List<Utilisateur> trouverTous();
+    //List<Utilisateur> trouverTous();
+
+    Page<UtilisateurResponse> trouverTous(Pageable pageable);
 
     void supprimerUtilisateur(Long id);
 

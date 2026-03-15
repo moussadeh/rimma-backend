@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -26,8 +28,8 @@ public class UtilisateurController {
     @Operation(summary = "Récupération de tous les utilisateurs => Retourne la liste complète des utilisateurs.")
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Utilisateur>> getAllUtilisateurs() {
-        return ResponseEntity.ok(utilisateurService.trouverTous());
+    public ResponseEntity<Page<UtilisateurResponse>> getAllUtilisateurs(Pageable  pageable) {
+        return ResponseEntity.ok(utilisateurService.trouverTous(pageable));
     }
 
     @GetMapping("/me")
@@ -43,7 +45,6 @@ public class UtilisateurController {
         response.setRole(utilisateur.getRole());
         response.setTelephone(utilisateur.getTelephone());
         response.setActive(utilisateur.getActive());
-
         return ResponseEntity.ok(response);
     }
 
