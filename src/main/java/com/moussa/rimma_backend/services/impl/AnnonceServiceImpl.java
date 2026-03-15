@@ -70,8 +70,6 @@ public class AnnonceServiceImpl implements AnnonceService {
             images.add(image);
         });
 
-        annonce.setValide(true);
-
         annonce.setImages(images);
 
         return annonceRepository.save(annonce);
