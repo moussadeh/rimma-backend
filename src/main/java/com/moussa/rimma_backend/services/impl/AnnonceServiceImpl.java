@@ -13,6 +13,8 @@ import com.moussa.rimma_backend.models.enums.StatutType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.AnnonceService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -67,6 +69,8 @@ public class AnnonceServiceImpl implements AnnonceService {
             image.setAnnonce(annonce);
             images.add(image);
         });
+
+        annonce.setValide(true);
 
         annonce.setImages(images);
 
@@ -133,8 +137,8 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     @Override
-    public List<Annonce> getAnnonces() {
-        return annonceRepository.findByValideTrue();
+    public Page<Annonce> getAnnonces(Pageable pageable){
+        return annonceRepository.findByValideTrue(pageable);
     }
 
     @Override
