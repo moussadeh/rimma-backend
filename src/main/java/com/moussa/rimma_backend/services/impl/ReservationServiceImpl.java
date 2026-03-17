@@ -4,6 +4,7 @@ import com.moussa.rimma_backend.exceptions.*;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Reservation;
 import com.moussa.rimma_backend.models.Utilisateur;
+import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.models.enums.ReservationStatusType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
 import com.moussa.rimma_backend.repositories.ReservationRepository;
@@ -68,6 +69,14 @@ public class ReservationServiceImpl implements ReservationService {
         Utilisateur client = utilisateurRepository.findById(clientId)
                 .orElseThrow(() -> new UtilisateurNotFoundException());
         return reservationRepository.findByClient(client);
+    }
+
+    @Override
+    public List<Reservation> filterByReservationStatus(ReservationStatusType status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Le status d'hébergement est requis");
+        }
+        return reservationRepository.findByReservationStatusType(status);
     }
 
 }

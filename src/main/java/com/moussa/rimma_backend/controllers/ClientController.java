@@ -3,6 +3,8 @@ package com.moussa.rimma_backend.controllers;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Reservation;
 import com.moussa.rimma_backend.models.Utilisateur;
+import com.moussa.rimma_backend.models.enums.HebergementType;
+import com.moussa.rimma_backend.models.enums.ReservationStatusType;
 import com.moussa.rimma_backend.services.AnnonceService;
 import com.moussa.rimma_backend.services.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -77,5 +79,11 @@ public class ClientController {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
         reservationService.annulerReservation(utilisateur.getId(), reservationId);
         return "Réservation annulée avec succès";
+    }
+
+    @GetMapping("/filter/par/statut/reservation")
+    @Operation(summary = "Filtrer les reservations par Statut")
+    public ResponseEntity<List<Reservation>> filterByHebergement(@RequestParam ReservationStatusType status) {
+        return ResponseEntity.ok(reservationService.filterByReservationStatus(status));
     }
 }
