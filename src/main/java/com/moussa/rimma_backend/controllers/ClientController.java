@@ -83,7 +83,8 @@ public class ClientController {
 
     @GetMapping("/filter/par/statut/reservation")
     @Operation(summary = "Filtrer les reservations par Statut")
-    public ResponseEntity<List<Reservation>> filterByHebergement(@RequestParam ReservationStatusType status) {
-        return ResponseEntity.ok(reservationService.filterByReservationStatus(status));
+    public ResponseEntity<List<Reservation>> filterByHebergement(Authentication authentication, @RequestParam ReservationStatusType status) {
+        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
+        return ResponseEntity.ok(reservationService.filterByReservationStatus(utilisateur, status));
     }
 }

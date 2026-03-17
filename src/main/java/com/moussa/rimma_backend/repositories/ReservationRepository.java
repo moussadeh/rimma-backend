@@ -14,5 +14,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     boolean existsByClientAndAnnonce(Utilisateur client, Annonce annonce);
 
-    List<Reservation> findByReservationStatusType(ReservationStatusType status);
+    List<Reservation> findByClientAndStatus(Utilisateur client, ReservationStatusType status);
+
 }

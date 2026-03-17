@@ -59,6 +59,11 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation annulerReservation(Long clientId, Long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
+        Utilisateur client = utilisateurRepository.findById(clientId)
+                .orElseThrow(() -> new UtilisateurNotFoundException());
+        if (!reservation.getClient().getId().equals(client.getId())) {
+            throw new RuntimeException("Cette réservation ne vous appartient pas");
+        }
         reservation.setStatus(ReservationStatusType.ANNULEE);
         reservation.setDateAnnulationClient(LocalDateTime.now());
         return reservationRepository.save(reservation);
@@ -72,11 +77,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> filterByReservationStatus(ReservationStatusType status) {
-        if (status == null) {
-            throw new IllegalArgumentException("Le status d'hébergement est requis");
-        }
-        return reservationRepository.findByReservationStatusType(status);
+    public List<Reservation> filterByReservationStatus(Utilisateur client, ReservationStatusType status) {
+        return reservationRepository.findByClientAndStatus(client, status);
     }
 
 }
