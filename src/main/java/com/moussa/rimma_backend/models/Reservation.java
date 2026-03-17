@@ -33,7 +33,9 @@ public class Reservation {
     @Column(length = 50)
     private ReservationStatusType status;
 
-    private LocalDateTime date_reponse_hote;
+    private LocalDateTime dateReservation;
 
-    private LocalDateTime date_annulation_client;
+    private LocalDateTime dateReponseHote;
+
+    private LocalDateTime dateAnnulationClient;
 }
