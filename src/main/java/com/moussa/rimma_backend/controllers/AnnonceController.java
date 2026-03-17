@@ -27,9 +27,9 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
-    @Operation(summary = "Création d'une annonce => Permet à un utilisateur de créer une nouvelle annonce.")
+    @Operation(summary = "Création d'une annonce => Permet à un hôte de créer une nouvelle annonce.")
     @PostMapping("/creer")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
+    @PreAuthorize("hasRole('HOTE')")
     public ResponseEntity<Annonce> creerAnnonce(Authentication authentication, @Valid @RequestBody AnnonceRequest annonceRequest){
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
         Annonce annonce = annonceService.creerAnnonce(utilisateur.getId(), annonceRequest);
@@ -42,15 +42,15 @@ public class AnnonceController {
         return ResponseEntity.ok(annonceService.getAnnonces(pageable));
     }
 
-    @GetMapping("/client/me")
-    @PreAuthorize("hasRole('CLIENT')")
-    @Operation(summary = "Recupère toutes les annonces de l'utilisateur connecté")
+    @GetMapping("/hote/me")
+    @PreAuthorize("hasRole('HOTE')")
+    @Operation(summary = "Recupère toutes les annonces de l'hôte connecté")
     public ResponseEntity<List<Annonce>> getMesAnnonces(Authentication authentication) {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
         return ResponseEntity.ok(annonceService.getAnnoncesByUtilisateur(utilisateur.getId()));
     }
 
-    @Operation(summary = "Récupération des annonces d’un utilisateur => Permet à un ADMIN toutes les annonces associées à un utilisateur spécifique.")
+    @Operation(summary = "Récupération des annonces d’un hôte => Permet à un ADMIN toutes les annonces associées à un hôte spécifique.")
     @GetMapping("/utilisateur/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Annonce> findAnnoncesByUtilisateur(@PathVariable Long id){

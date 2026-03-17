@@ -52,7 +52,7 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.creerUtilisateur(utilisateurRequest));
     }
 
-    @Operation(summary = "Modification d'un utilisateur => Permet à un CLIENT de modifier ces propres informations.")
+    @Operation(summary = "Modification d'un utilisateur => Permet à un utilisateur de modifier ces propres informations.")
     @PutMapping("/me")
     @PreAuthorize("hasRole('CLIENT') or hasRole('HOTE')")
     public ResponseEntity<Utilisateur> modifierUtilisateurByUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {

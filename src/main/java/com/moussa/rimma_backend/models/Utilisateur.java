@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,4 +42,8 @@ public class Utilisateur {
     public String toString() {
         return nom + " " + prenom;
     }
+
+    @ManyToMany
+    @JoinTable(name = "favoris", joinColumns = @JoinColumn(name = "utilisateur_id"), inverseJoinColumns = @JoinColumn(name = "annonce_id"))
+    private List<Annonce> favoris = new ArrayList<>();
 }

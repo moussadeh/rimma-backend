@@ -35,8 +35,8 @@ public class RechercheController {
     }
 
     @GetMapping("/me/search")
-    @PreAuthorize("hasRole('CLIENT')")
-    @Operation(summary = "Recherche d'annonces => Permet à un client de rechercher sur ses propres annonces.")
+    @PreAuthorize("hasRole('HOTE')")
+    @Operation(summary = "Recherche d'annonces => Permet à un hôte de rechercher sur ses propres annonces.")
     public ResponseEntity<List<Annonce>> searchMyOwnAnnonces(@RequestParam String query, Authentication authentication) {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
         return ResponseEntity.ok(annonceService.searchMyOwnAnnonces(utilisateur.getId(), query));

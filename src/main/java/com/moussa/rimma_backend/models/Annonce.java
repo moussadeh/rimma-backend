@@ -48,5 +48,7 @@ public class Annonce {
     @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
-
+    @ManyToMany(mappedBy = "favoris")
+    @JsonIgnore
+    private List<Utilisateur> utilisateursFavoris = new ArrayList<>();
 }

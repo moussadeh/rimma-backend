@@ -22,8 +22,6 @@ public interface AnnonceService {
 
     boolean isOwner(Long annonceId, Long userId);
 
-    // List<Annonce> getAnnonces();
-
     Page<Annonce> getAnnonces(Pageable pageable);
 
     Annonce validerAnnonce(Long annonceId);
@@ -31,7 +29,6 @@ public interface AnnonceService {
     Annonce invaliderAnnonce(Long annonceId);
 
     Annonce getAnnonceById(Long id);
-
 
     List<Annonce> searchAnnonces(String query);
 
@@ -42,4 +39,10 @@ public interface AnnonceService {
     List<Annonce> filterByPrix(Double minPrix, Double maxPrix);
 
     //AnnonceResponse fabriquerAnnonceResponse(Annonce annonce);
+
+    void ajouterFavori(Long utilisateurId, Long annonceId);
+
+    void retirerFavori(Long utilisateurId, Long annonceId);
+
+    List<Annonce> getFavoris(Long utilisateurId);
 }

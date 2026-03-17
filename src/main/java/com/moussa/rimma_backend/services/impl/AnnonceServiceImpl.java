@@ -198,6 +198,39 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.filterByPrix(minPrix, maxPrix);
     }
 
+    @Override
+    public void ajouterFavori(Long utilisateurId, Long annonceId) {
+        Utilisateur user = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new UtilisateurNotFoundException());
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException());
+        if (user.getFavoris().contains(annonce)) {
+            throw new RuntimeException("Cette annonce est déjà dans vos favoris");
+        }
+        user.getFavoris().add(annonce);
+        utilisateurRepository.save(user);
+    }
+
+    @Override
+    public void retirerFavori(Long utilisateurId, Long annonceId) {
+        Utilisateur user = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new UtilisateurNotFoundException());
+        Annonce annonce = annonceRepository.findById(annonceId)
+                .orElseThrow(() -> new AnnonceNotFoundException());
+        if (!user.getFavoris().contains(annonce)) {
+            throw new RuntimeException("Cette annonce n'est pas dans vos favoris");
+        }
+        user.getFavoris().remove(annonce);
+        utilisateurRepository.save(user);
+    }
+
+    @Override
+    public List<Annonce> getFavoris(Long utilisateurId) {
+        Utilisateur user = utilisateurRepository.findById(utilisateurId)
+                .orElseThrow(() -> new UtilisateurNotFoundException());
+        return user.getFavoris();
+    }
+
 //    @Override
 //    public AnnonceResponse fabriquerAnnonceResponse(Annonce annonce) {
 //        AnnonceResponse annonceResponse = new AnnonceResponse();
