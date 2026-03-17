@@ -204,6 +204,9 @@ public class AnnonceServiceImpl implements AnnonceService {
                 .orElseThrow(() -> new UtilisateurNotFoundException());
         Annonce annonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
+        if(!annonce.getValide()) {
+            throw new RuntimeException("Cette annonce n'est pas encore validée par nos équipes.");
+        }
         if (user.getFavoris().contains(annonce)) {
             throw new RuntimeException("Cette annonce est déjà dans vos favoris");
         }

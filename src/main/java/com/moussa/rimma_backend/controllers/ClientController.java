@@ -54,7 +54,7 @@ public class ClientController {
     }
 
     @Operation(summary = "Permet à un client de reserver une annonce qui sera validée par l'hote.")
-    @GetMapping("/me/add/reservation/{annonceId}")
+    @PostMapping("/me/add/reservation/{annonceId}")
     @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<String> reserverAnnonce(Authentication authentication, @PathVariable Long annonceId) {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();

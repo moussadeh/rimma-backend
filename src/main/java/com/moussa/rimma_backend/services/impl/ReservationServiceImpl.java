@@ -35,6 +35,9 @@ public class ReservationServiceImpl implements ReservationService {
                 .orElseThrow(() -> new UtilisateurNotFoundException());
         Annonce annonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
+        if(!annonce.getValide()) {
+            throw new RuntimeException("Cette annonce n'est pas encore validée par nos équipes.");
+        }
         boolean dejaPrise = annonce.getReservations().stream()
                 .anyMatch(r -> r.getStatus() == ReservationStatusType.VALIDEE);
         if (dejaPrise) {
