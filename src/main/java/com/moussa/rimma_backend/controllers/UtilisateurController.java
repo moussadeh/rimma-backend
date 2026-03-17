@@ -37,15 +37,7 @@ public class UtilisateurController {
     @Operation(summary = "Utilisateur connecté => Retourne les informations de l'utilisateur authentifié.")
     public ResponseEntity<UtilisateurResponse> getCurrentUser(Authentication authentication) {
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
-
-        UtilisateurResponse response = new UtilisateurResponse();
-        response.setNom(utilisateur.getNom());
-        response.setPrenom(utilisateur.getPrenom());
-        response.setEmail(utilisateur.getEmail());
-        response.setRole(utilisateur.getRole());
-        response.setTelephone(utilisateur.getTelephone());
-        response.setActive(utilisateur.getActive());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(utilisateurService.utilisateurConnectee(utilisateur));
     }
 
     @Operation(summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN de consulter les informations d’un utilisateur.")

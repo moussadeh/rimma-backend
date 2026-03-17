@@ -70,6 +70,19 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public UtilisateurResponse utilisateurConnectee(Utilisateur utilisateur) {
+        UtilisateurResponse response = new UtilisateurResponse();
+        response.setNom(utilisateur.getNom());
+        response.setPrenom(utilisateur.getPrenom());
+        response.setEmail(utilisateur.getEmail());
+        response.setRole(utilisateur.getRole());
+        response.setTelephone(utilisateur.getTelephone());
+        response.setActive(utilisateur.getActive());
+
+        return response;
+    }
+
+    @Override
     public Page<UtilisateurResponse> trouverTous(Pageable pageable) {
         Page<Utilisateur> utilisateurs = utilisateurRepository.findAll(pageable);
         return utilisateurs.map(utilisateur -> {

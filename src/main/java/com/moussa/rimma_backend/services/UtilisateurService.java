@@ -16,7 +16,7 @@ public interface UtilisateurService {
 
     Utilisateur trouverParId(Long id);
 
-    //List<Utilisateur> trouverTous();
+    UtilisateurResponse utilisateurConnectee(Utilisateur utilisateur);
 
     Page<UtilisateurResponse> trouverTous(Pageable pageable);
 
