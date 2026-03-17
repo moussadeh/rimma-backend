@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.controllers;
 
 import com.moussa.rimma_backend.exceptions.EmailAlreadyUsedException;
 import com.moussa.rimma_backend.exceptions.IncorrectPasswordException;
+import com.moussa.rimma_backend.exceptions.NotAnEmailException;
 import com.moussa.rimma_backend.exceptions.UtilisateurWithEmailNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.LoginRequest;
@@ -49,6 +50,11 @@ public class AuthController {
     @Operation(summary = "Inscription d'un client => Permet de créer un nouveau compte client avec le rôle CLIENT. L'email doit être unique.")
     @PostMapping("/client/register")
     public RegisterResponse registerClient(@RequestBody RegisterRequest request) {
+
+        if(!request.getEmail().contains("@") || !request.getEmail().contains(".")) {
+            throw new NotAnEmailException(request.getEmail() + " n'est pas un format d'email valide.");
+        }
+
         if (utilisateurRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new EmailAlreadyUsedException(request.getEmail());
         }
@@ -71,6 +77,11 @@ public class AuthController {
     @Operation(summary = "Inscription d'un hôte => Permet de créer un nouveau compte hôte avec le rôle HÔTE. L'email doit être unique.")
     @PostMapping("/hote/register")
     public RegisterResponse registerHote(@RequestBody RegisterRequest request) {
+
+        if(!request.getEmail().contains("@") || !request.getEmail().contains(".")) {
+            throw new NotAnEmailException(request.getEmail() + " n'est pas un format d'email valide.");
+        }
+
         if (utilisateurRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new EmailAlreadyUsedException(request.getEmail());
         }
