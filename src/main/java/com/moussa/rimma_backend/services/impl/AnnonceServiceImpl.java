@@ -1,9 +1,6 @@
 package com.moussa.rimma_backend.services.impl;
 
-import com.moussa.rimma_backend.exceptions.AnnonceNotFoundException;
-import com.moussa.rimma_backend.exceptions.ImageLimitException;
-import com.moussa.rimma_backend.exceptions.SearchParamMissingException;
-import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
+import com.moussa.rimma_backend.exceptions.*;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Image;
 import com.moussa.rimma_backend.models.Utilisateur;
@@ -205,10 +202,10 @@ public class AnnonceServiceImpl implements AnnonceService {
         Annonce annonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
         if(!annonce.getValide()) {
-            throw new RuntimeException("Cette annonce n'est pas encore validée par nos équipes.");
+            throw new AnnonceNotValidException("Cette annonce n'est pas encore validée par nos équipes.");
         }
         if (user.getFavoris().contains(annonce)) {
-            throw new RuntimeException("Cette annonce est déjà dans vos favoris");
+            throw new AlereadyInFavorisException("Cette annonce est déjà dans vos favoris.");
         }
         user.getFavoris().add(annonce);
         utilisateurRepository.save(user);
@@ -221,7 +218,7 @@ public class AnnonceServiceImpl implements AnnonceService {
         Annonce annonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
         if (!user.getFavoris().contains(annonce)) {
-            throw new RuntimeException("Cette annonce n'est pas dans vos favoris");
+            throw new NotInFavorisException("Cette annonce n'est pas dans vos favoris.");
         }
         user.getFavoris().remove(annonce);
         utilisateurRepository.save(user);

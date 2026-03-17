@@ -26,7 +26,7 @@ public class HoteController {
     }
 
     @Operation(summary = "Création d'une annonce => Permet à un hôte de créer une nouvelle annonce.")
-    @PostMapping("/creer")
+    @PostMapping("/creer/annonce")
     @PreAuthorize("hasRole('HOTE')")
     public ResponseEntity<Annonce> creerAnnonce(Authentication authentication, @Valid @RequestBody AnnonceRequest annonceRequest){
         Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();

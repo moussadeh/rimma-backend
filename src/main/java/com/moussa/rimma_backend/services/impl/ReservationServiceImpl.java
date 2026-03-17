@@ -1,7 +1,6 @@
 package com.moussa.rimma_backend.services.impl;
 
-import com.moussa.rimma_backend.exceptions.AnnonceNotFoundException;
-import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
+import com.moussa.rimma_backend.exceptions.*;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Reservation;
 import com.moussa.rimma_backend.models.Utilisateur;
@@ -36,7 +35,10 @@ public class ReservationServiceImpl implements ReservationService {
         Annonce annonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
         if(!annonce.getValide()) {
-            throw new RuntimeException("Cette annonce n'est pas encore validée par nos équipes.");
+            throw new AnnonceNotValidException("Cette annonce n'est pas encore validée par nos équipes.");
+        }
+        if (reservationRepository.existsByClientAndAnnonce(client, annonce)) {
+            throw new AlereadyInReservationsException("Vous avez déjà réservé cette annonce");
         }
         boolean dejaPrise = annonce.getReservations().stream()
                 .anyMatch(r -> r.getStatus() == ReservationStatusType.VALIDEE);
@@ -55,7 +57,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation annulerReservation(Long clientId, Long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
+                .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
         reservation.setStatus(ReservationStatusType.ANNULEE);
         reservation.setDateAnnulationClient(LocalDateTime.now());
         return reservationRepository.save(reservation);

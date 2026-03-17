@@ -75,6 +75,26 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 
+    @ExceptionHandler(NotInFavorisException.class)
+    public ResponseEntity<ErrorResponse> handleNotInFavorisException(NotInFavorisException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(AlereadyInFavorisException.class)
+    public ResponseEntity<ErrorResponse> handleAlereadyInFavorisException(AlereadyInFavorisException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(NotFoundReservationException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundReservationException(NotFoundReservationException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+    }
+
+    @ExceptionHandler(AlereadyInReservationsException.class)
+    public ResponseEntity<ErrorResponse> handleAlereadyInReservationsException(AlereadyInReservationsException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
     // handler est déclenché quand Spring Security bloque une action par exemple @PreAuthorize
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {
