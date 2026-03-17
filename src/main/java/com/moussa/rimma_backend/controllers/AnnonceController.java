@@ -1,6 +1,5 @@
 package com.moussa.rimma_backend.controllers;
 
-import com.moussa.rimma_backend.exceptions.UtilisateurNonAuthentifieException;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
@@ -43,7 +42,7 @@ public class AnnonceController {
         return ResponseEntity.ok(annonceService.getAnnonces(pageable));
     }
 
-    @GetMapping("/me")
+    @GetMapping("/client/me")
     @PreAuthorize("hasRole('CLIENT')")
     @Operation(summary = "Recupère toutes les annonces de l'utilisateur connecté")
     public ResponseEntity<List<Annonce>> getMesAnnonces(Authentication authentication) {

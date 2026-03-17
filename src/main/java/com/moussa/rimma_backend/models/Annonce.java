@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,4 +47,6 @@ public class Annonce {
 
     @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
+
+
 }

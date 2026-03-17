@@ -15,8 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Tag(name = "Utilisateurs", description = "Gestion des utilisateurs de l'application rimma")
 @RestController
 @RequestMapping("/rimma/api/utilisateurs")
@@ -56,7 +54,7 @@ public class UtilisateurController {
 
     @Operation(summary = "Modification d'un utilisateur => Permet à un CLIENT de modifier ces propres informations.")
     @PutMapping("/me")
-    @PreAuthorize("hasRole('CLIENT')")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('HOTE')")
     public ResponseEntity<Utilisateur> modifierUtilisateurByUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
         return ResponseEntity.ok(utilisateurService.modifierUtilisateur(id, utilisateur));
     }
