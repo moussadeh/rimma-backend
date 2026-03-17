@@ -51,4 +51,8 @@ public class Annonce {
     @ManyToMany(mappedBy = "favoris")
     @JsonIgnore
     private List<Utilisateur> utilisateursFavoris = new ArrayList<>();
+
+    @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reservation> reservations = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.moussa.rimma_backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moussa.rimma_backend.models.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -46,4 +47,8 @@ public class Utilisateur {
     @ManyToMany
     @JoinTable(name = "favoris", joinColumns = @JoinColumn(name = "utilisateur_id"), inverseJoinColumns = @JoinColumn(name = "annonce_id"))
     private List<Annonce> favoris = new ArrayList<>();
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reservation> reservations = new ArrayList<>();
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "CLIENT", description = "Gestion des actions que peut effectuer un client (personne qui reserve des annonces)")
+@Tag(name = "Client", description = "Gestion des actions effectuées par un client (personne qui reserve des annonces)")
 @RestController
 @RequestMapping("/rimma/api/client")
 public class ClientController {

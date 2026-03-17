@@ -1,7 +1,6 @@
 package com.moussa.rimma_backend.controllers;
 
 import com.moussa.rimma_backend.models.Annonce;
-import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
 import com.moussa.rimma_backend.services.AnnonceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,27 +25,10 @@ public class AnnonceController {
         this.annonceService = annonceService;
     }
 
-    @Operation(summary = "Création d'une annonce => Permet à un hôte de créer une nouvelle annonce.")
-    @PostMapping("/creer")
-    @PreAuthorize("hasRole('HOTE')")
-    public ResponseEntity<Annonce> creerAnnonce(Authentication authentication, @Valid @RequestBody AnnonceRequest annonceRequest){
-        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
-        Annonce annonce = annonceService.creerAnnonce(utilisateur.getId(), annonceRequest);
-        return ResponseEntity.ok(annonce);
-    }
-
     @Operation(summary = "Récupération de toutes les annonces valides => Retourne la liste de toutes les annonces validées. Cette route est publique.")
     @GetMapping
     public ResponseEntity<Page<Annonce>> getAnnonces(Pageable pageable) {
         return ResponseEntity.ok(annonceService.getAnnonces(pageable));
-    }
-
-    @GetMapping("/hote/me")
-    @PreAuthorize("hasRole('HOTE')")
-    @Operation(summary = "Recupère toutes les annonces de l'hôte connecté")
-    public ResponseEntity<List<Annonce>> getMesAnnonces(Authentication authentication) {
-        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
-        return ResponseEntity.ok(annonceService.getAnnoncesByUtilisateur(utilisateur.getId()));
     }
 
     @Operation(summary = "Récupération des annonces d’un hôte => Permet à un ADMIN toutes les annonces associées à un hôte spécifique.")
