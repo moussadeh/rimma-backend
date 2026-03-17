@@ -3,7 +3,6 @@ package com.moussa.rimma_backend.services;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
 import com.moussa.rimma_backend.models.enums.HebergementType;
-import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -41,4 +40,6 @@ public interface AnnonceService {
     List<Annonce> filterByHebergement(HebergementType type);
 
     List<Annonce> filterByPrix(Double minPrix, Double maxPrix);
+
+    //AnnonceResponse fabriquerAnnonceResponse(Annonce annonce);
 }

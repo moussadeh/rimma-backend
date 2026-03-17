@@ -198,4 +198,29 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.filterByPrix(minPrix, maxPrix);
     }
 
+//    @Override
+//    public AnnonceResponse fabriquerAnnonceResponse(Annonce annonce) {
+//        AnnonceResponse annonceResponse = new AnnonceResponse();
+//        annonceResponse.setTitre(annonce.getTitre());
+//        annonceResponse.setDescription(annonce.getDescription());
+//        annonceResponse.setPrix(annonce.getPrix());
+//        annonceResponse.setVille(annonce.getVille());
+//        annonceResponse.setQuartier(annonce.getQuartier());
+//        annonceResponse.setHebergement(annonce.getHebergement());
+//        annonceResponse.setValide(annonce.getValide());
+//        annonceResponse.setActif(annonce.getActif());
+//        annonceResponse.setStatut(annonce.getStatut());
+//
+//        Utilisateur utilisateur = annonce.getUtilisateur();
+//        annonceResponse.setUtilisateur(utilisateur.toString());
+//
+//        List<String> images = new ArrayList<>();
+//        for(Image image : annonce.getImages()) {
+//            images.add(image.getUrl());
+//        }
+//        annonceResponse.setImages(images);
+//
+//        return annonceResponse;
+//    }
+
 }
