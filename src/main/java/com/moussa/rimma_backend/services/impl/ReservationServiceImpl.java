@@ -38,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
             throw new AnnonceNotValidException("Cette annonce n'est pas encore validée par nos équipes.");
         }
         if (reservationRepository.existsByClientAndAnnonce(client, annonce)) {
-            throw new AlereadyInReservationsException("Vous avez déjà réservé cette reservation");
+            throw new AlereadyInReservationsException("Vous avez déjà réservé cette annonce");
         }
         boolean dejaPrise = annonce.getReservations().stream()
                 .anyMatch(r -> r.getStatus() == ReservationStatusType.VALIDEE);
@@ -64,7 +64,7 @@ public class ReservationServiceImpl implements ReservationService {
             throw new RuntimeException("Cette réservation ne vous appartient pas");
         }
         if(reservation.getStatus().equals(ReservationStatusType.ANNULEE)) {
-            throw new RuntimeException("Vous avez déjà annulé cette annonce.");
+            throw new RuntimeException("Vous avez déjà annulé cette reservation.");
         }
         reservation.setStatus(ReservationStatusType.ANNULEE);
         reservation.setDateAnnulationClient(LocalDateTime.now());

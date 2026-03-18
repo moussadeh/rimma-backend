@@ -36,6 +36,7 @@ public class Utilisateur {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
+    @JsonIgnore
     private RoleType role;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
