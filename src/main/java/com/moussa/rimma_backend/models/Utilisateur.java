@@ -39,6 +39,7 @@ public class Utilisateur {
     private RoleType role;
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Annonce> annonces;
 
     public String toString() {
@@ -47,6 +48,7 @@ public class Utilisateur {
 
     @ManyToMany
     @JoinTable(name = "favoris", joinColumns = @JoinColumn(name = "utilisateur_id"), inverseJoinColumns = @JoinColumn(name = "annonce_id"))
+    @JsonIgnore
     private List<Annonce> favoris = new ArrayList<>();
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)

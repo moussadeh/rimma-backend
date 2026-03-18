@@ -95,6 +95,11 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }
 
+    @ExceptionHandler(NotOwnAnnonceException.class)
+    public ResponseEntity<ErrorResponse> handleNotOwnAnnonceException(NotOwnAnnonceException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), request);
+    }
+
     // handler est déclenché quand Spring Security bloque une action par exemple @PreAuthorize
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex, HttpServletRequest request) {

@@ -3,7 +3,6 @@ package com.moussa.rimma_backend.controllers;
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Reservation;
 import com.moussa.rimma_backend.models.Utilisateur;
-import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.models.enums.ReservationStatusType;
 import com.moussa.rimma_backend.services.AnnonceService;
 import com.moussa.rimma_backend.services.ReservationService;
