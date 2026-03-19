@@ -93,31 +93,40 @@ public class ReservationServiceImpl implements ReservationService {
 //        return reservationRepository.findByAnnonceIdAndAnnonceUtilisateur(annonceId, hote);
 //    }
 //
-//    @Override
-//    public Reservation validerReservation(Long reservationId, Utilisateur hote) {
-//        Reservation reservation = reservationRepository.findById(reservationId)
-//                .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
-//        if (!reservation.getAnnonce().getUtilisateur().getId().equals(hote.getId())) {
-//            throw new NotOwnAnnonceException("Vous n'êtes pas le propriétaire de cette annonce");
-//        }
-//        if (reservation.getStatus() != ReservationStatusType.EN_COURS_DE_VALIDATION) {
-//            throw new RuntimeException("Cette réservation ne peut pas être validée");
-//        }
-//        reservation.setStatus(ReservationStatusType.VALIDEE);
-//        return reservationRepository.save(reservation);
-//    }
-//
-//    @Override
-//    public Reservation refuserReservation(Long reservationId, Utilisateur hote) {
-//        Reservation reservation = reservationRepository.findById(reservationId)
-//                .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
-//        if (!reservation.getAnnonce().getUtilisateur().getId().equals(hote.getId())) {
-//            throw new NotOwnAnnonceException("Vous n'êtes pas le propriétaire de cette annonce");
-//        }
-//        reservation.setStatus(ReservationStatusType.REFUSEE);
-//        return reservationRepository.save(reservation);
-//    }
-//
+    @Override
+    public Reservation validerReservation(Long reservationId, Utilisateur hote) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
+        if (!reservation.getAnnonce().getUtilisateur().getId().equals(hote.getId())) {
+            throw new NotOwnAnnonceException("Vous n'êtes pas le propriétaire de cette annonce");
+        }
+        if(reservation.getStatus() == ReservationStatusType.VALIDEE) {
+            throw new RuntimeException("Vous avez déjà refusé cette réservation.");
+        }
+        if (reservation.getStatus() != ReservationStatusType.EN_COURS_DE_VALIDATION) {
+            throw new RuntimeException("Cette réservation ne peut pas être validée");
+        }
+        reservation.setStatus(ReservationStatusType.VALIDEE);
+        return reservationRepository.save(reservation);
+    }
+
+    @Override
+    public Reservation refuserReservation(Long reservationId, Utilisateur hote) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new NotFoundReservationException("Réservation non trouvée"));
+        if (!reservation.getAnnonce().getUtilisateur().getId().equals(hote.getId())) {
+            throw new NotOwnAnnonceException("Vous n'êtes pas le propriétaire de cette annonce");
+        }
+        if(reservation.getStatus() == ReservationStatusType.REFUSEE) {
+            throw new RuntimeException("Vous avez déjà refusé cette réservation.");
+        }
+        if (reservation.getStatus() != ReservationStatusType.EN_COURS_DE_VALIDATION) {
+            throw new RuntimeException("Cette réservation ne peut pas être validée");
+        }
+        reservation.setStatus(ReservationStatusType.REFUSEE);
+        return reservationRepository.save(reservation);
+    }
+
 //    @Override
 //    public List<Reservation> filterReservationsHote(Utilisateur hote, ReservationStatusType status) {
 //        return reservationRepository.findByAnnonceUtilisateurAndStatus(hote, status);

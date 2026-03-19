@@ -17,13 +17,13 @@ public interface ReservationService {
     List<Reservation> filterByReservationStatus(Utilisateur client, ReservationStatusType status);
 
 //    List<Reservation> getReservationsHote(Utilisateur hote);
-//
-//    Reservation validerReservation(Long reservationId, Utilisateur hote);
-//
-//    Reservation refuserReservation(Long reservationId, Utilisateur hote);
-//
+
+    Reservation validerReservation(Long reservationId, Utilisateur hote);
+
+    Reservation refuserReservation(Long reservationId, Utilisateur hote);
+
 //    List<Reservation> filterReservationsHote(Utilisateur hote, ReservationStatusType status);
-//
+
 //    List<Reservation> getReservationsAnnonce(Long annonceId, Utilisateur hote);
 
 }

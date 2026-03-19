@@ -54,23 +54,23 @@ public class HoteController {
 //        Utilisateur hote = (Utilisateur) authentication.getPrincipal();
 //        return ResponseEntity.ok(reservationService.getReservationsAnnonce(annonceId, hote));
 //    }
-//
-//    @PatchMapping("/valider/reservation/{reservationId}")
-//    @PreAuthorize("hasRole('HOTE')")
-//    @Operation(summary = "Valider une réservation")
-//    public ResponseEntity<Reservation> validerReservation(@PathVariable Long reservationId, Authentication authentication) {
-//        Utilisateur hote = (Utilisateur) authentication.getPrincipal();
-//        return ResponseEntity.ok(reservationService.validerReservation(reservationId, hote));
-//    }
-//
-//    @PatchMapping("/refuser/reservation/{reservationId}")
-//    @PreAuthorize("hasRole('HOTE')")
-//    @Operation(summary = "Refuser une réservation")
-//    public ResponseEntity<Reservation> refuserReservation(@PathVariable Long reservationId, Authentication authentication) {
-//        Utilisateur hote = (Utilisateur) authentication.getPrincipal();
-//        return ResponseEntity.ok(reservationService.refuserReservation(reservationId, hote));
-//    }
-//
+
+    @PatchMapping("/valider/reservation/{reservationId}")
+    @PreAuthorize("hasRole('HOTE')")
+    @Operation(summary = "Permet à l'hôte de valider une réservation")
+    public ResponseEntity<Reservation> validerReservation(@PathVariable Long reservationId, Authentication authentication) {
+        Utilisateur hote = (Utilisateur) authentication.getPrincipal();
+        return ResponseEntity.ok(reservationService.validerReservation(reservationId, hote));
+    }
+
+    @PatchMapping("/refuser/reservation/{reservationId}")
+    @PreAuthorize("hasRole('HOTE')")
+    @Operation(summary = "Permet à l'hôte de refuser une réservation")
+    public ResponseEntity<Reservation> refuserReservation(@PathVariable Long reservationId, Authentication authentication) {
+        Utilisateur hote = (Utilisateur) authentication.getPrincipal();
+        return ResponseEntity.ok(reservationService.refuserReservation(reservationId, hote));
+    }
+
 //    @GetMapping("/filter/reservations")
 //    @PreAuthorize("hasRole('HOTE')")
 //    @Operation(summary = "Filtrer les réservations des annonces de l'hôte par statut")
