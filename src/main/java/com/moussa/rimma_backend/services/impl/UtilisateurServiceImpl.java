@@ -1,6 +1,7 @@
 package com.moussa.rimma_backend.services.impl;
 
 import com.moussa.rimma_backend.configurations.SecurityConfig;
+import com.moussa.rimma_backend.exceptions.AlereadyHasThisRoleException;
 import com.moussa.rimma_backend.exceptions.EmailAlreadyUsedException;
 import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
@@ -116,7 +117,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 .orElseThrow(UtilisateurNotFoundException::new);
 
         if (user.getRoles().contains(role)) {
-            throw new IllegalStateException("L'utilisateur possède déjà ce rôle");
+            throw new AlereadyHasThisRoleException("L'utilisateur possède déjà ce rôle");
         }
 
         user.getRoles().add(role);
