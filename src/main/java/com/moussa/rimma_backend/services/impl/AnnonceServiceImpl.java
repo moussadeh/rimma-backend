@@ -5,6 +5,7 @@ import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.Image;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
+import com.moussa.rimma_backend.models.dto.FieldOption;
 import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.models.enums.StatutType;
 import com.moussa.rimma_backend.repositories.AnnonceRepository;
@@ -229,6 +230,43 @@ public class AnnonceServiceImpl implements AnnonceService {
         Utilisateur user = utilisateurRepository.findById(utilisateurId)
                 .orElseThrow(() -> new UtilisateurNotFoundException());
         return user.getFavoris();
+    }
+
+    @Override
+    public List<FieldOption> getOptionsByTypeHebergement(HebergementType hebergementType) {
+        List<FieldOption> fields = new ArrayList<>();
+        switch (hebergementType) {
+            case MAISON:
+            case APPARTEMENT:
+                fields.add(new FieldOption("nombreChambres", "Nombre de chambres", "integer"));
+                fields.add(new FieldOption("nombreSallesDeBain", "Nombre de salles de bain", "integer"));
+                fields.add(new FieldOption("surface", "Surface (m²)", "double"));
+                fields.add(new FieldOption("isMeublee", "Meublé", "boolean"));
+                fields.add(new FieldOption("nombreEtages", "Nombre d'étages", "integer"));
+                fields.add(new FieldOption("isWifi", "Wifi", "boolean"));
+                fields.add(new FieldOption("isClimatisee", "Climatisé", "boolean"));
+                fields.add(new FieldOption("isPiscine", "Piscine", "boolean"));
+                fields.add(new FieldOption("isAscenseur", "Ascenseur", "boolean"));
+                fields.add(new FieldOption("isJardin", "Jardin", "boolean"));
+                fields.add(new FieldOption("isElectricite", "Accès à l'éléctricité", "boolean"));
+                fields.add(new FieldOption("surface", "Accès à l'eau", "boolean"));
+                break;
+            case TERRAIN:
+                fields.add(new FieldOption("surface", "Surface (m²)", "double"));
+                fields.add(new FieldOption("isConstructible", "Constructible", "boolean"));
+                fields.add(new FieldOption("isCloture", "Clôturé", "boolean"));
+                break;
+            case MAGASIN:
+            case BOUTIQUE:
+                fields.add(new FieldOption("surface", "Surface (m²)", "integer"));
+                fields.add(new FieldOption("accesRoute", "Proche de route principale", "boolean"));
+                fields.add(new FieldOption("isElectricite", "Accès à l'éléctricité", "boolean"));
+                fields.add(new FieldOption("surface", "Accès à l'eau", "boolean"));
+                break;
+            default:
+                throw new IllegalArgumentException("Type d'hebergment non supporté");
+        }
+        return fields;
     }
 
 //    @Override

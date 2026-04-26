@@ -2,6 +2,7 @@ package com.moussa.rimma_backend.services;
 
 import com.moussa.rimma_backend.models.Annonce;
 import com.moussa.rimma_backend.models.dto.AnnonceRequest;
+import com.moussa.rimma_backend.models.dto.FieldOption;
 import com.moussa.rimma_backend.models.enums.HebergementType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,4 +46,6 @@ public interface AnnonceService {
     void retirerFavori(Long utilisateurId, Long annonceId);
 
     List<Annonce> getFavoris(Long utilisateurId);
+
+    List<FieldOption> getOptionsByTypeHebergement(HebergementType type);
 }

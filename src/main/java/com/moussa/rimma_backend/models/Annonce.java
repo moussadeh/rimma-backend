@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.models.enums.StatutType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,4 +56,27 @@ public class Annonce {
     @OneToMany(mappedBy = "annonce", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Reservation> reservations = new ArrayList<>();
+
+    // options
+
+    @Column(nullable = true)
+    private Double surface;
+    @Column(nullable = true)
+    private Integer nombreChambres = null;
+    @Column(nullable = true)
+    private Integer nombreSallesDeBain = null;
+    @Column(nullable = true)
+    private Integer nombreEtages = null;
+    private Boolean isJardin = false;
+    private Boolean isPiscine = false;
+    private Boolean isAscenseur = false;
+    private Boolean isConstructible = false;
+    private Boolean isMeublee = false;
+    private Boolean isClimatisee = false;
+    private Boolean isWifi = false;
+    private Boolean isCloture = false;
+    private Boolean isAccesRoute = false;
+    private Boolean isElectricite = false;
+    private Boolean isEau = false;
+
 }
