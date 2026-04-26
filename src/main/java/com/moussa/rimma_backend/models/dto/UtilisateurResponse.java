@@ -1,12 +1,11 @@
 package com.moussa.rimma_backend.models.dto;
 
 import com.moussa.rimma_backend.models.enums.RoleType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +17,5 @@ public class UtilisateurResponse {
     private String telephone;
     private Boolean active;
     private String email;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private Set<RoleType> roles;
 }

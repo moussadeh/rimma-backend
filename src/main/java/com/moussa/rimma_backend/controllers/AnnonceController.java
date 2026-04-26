@@ -34,12 +34,12 @@ public class AnnonceController {
         return ResponseEntity.ok(annonceService.getAnnonces(pageable));
     }
 
-    @Operation(summary = "Récupération des annonces d’un hôte => Permet à un ADMIN toutes les annonces associées à un hôte spécifique.")
+    /*@Operation(summary = "Récupération des annonces d’un hôte => Permet à un ADMIN toutes les annonces associées à un hôte spécifique.")
     @GetMapping("/utilisateur/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Annonce> findAnnoncesByUtilisateur(@PathVariable Long id){
         return annonceService.getAnnoncesByUtilisateur(id);
-    }
+    }*/
 
     @Operation(summary = "Modification d'une annonce => Permet au propriétaire de l’annonce ou à un ADMIN de modifier une annonce existante.")
     @PutMapping("/annonce/{id}")

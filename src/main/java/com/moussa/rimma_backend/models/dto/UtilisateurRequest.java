@@ -1,8 +1,6 @@
 package com.moussa.rimma_backend.models.dto;
 
 import com.moussa.rimma_backend.models.enums.RoleType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,5 +13,4 @@ public class UtilisateurRequest {
     private String telephone;
     private String email;
     private String motDePasse;
-    private RoleType role;
 }

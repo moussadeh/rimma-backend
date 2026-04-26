@@ -3,6 +3,7 @@ package com.moussa.rimma_backend.controllers;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
 import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
+import com.moussa.rimma_backend.models.enums.RoleType;
 import com.moussa.rimma_backend.services.UtilisateurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,33 +39,33 @@ public class UtilisateurController {
         return ResponseEntity.ok(utilisateurService.utilisateurConnectee(utilisateur));
     }
 
-    @Operation(summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN de consulter les informations d’un utilisateur.")
+    /*@Operation(summary = "Récupération d'un utilisateur par ID => Permet à un ADMIN de consulter les informations d’un utilisateur.")
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur> getUtilisateur(@PathVariable Long id) {
         return ResponseEntity.ok(utilisateurService.trouverParId(id));
-    }
+    }*/
 
-    @Operation(summary = "Création d'un utilisateur => Permet à un ADMIN de créer un nouvel utilisateur.")
+    /*@Operation(summary = "Création d'un utilisateur => Permet à un ADMIN de créer un nouvel utilisateur.")
     @PostMapping("/creer")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur>  creerUtilisateur(@Valid @RequestBody UtilisateurRequest utilisateurRequest) {
         return ResponseEntity.ok(utilisateurService.creerUtilisateur(utilisateurRequest));
-    }
+    }*/
 
-    @Operation(summary = "Modification d'un utilisateur => Permet à un utilisateur de modifier ces propres informations.")
+    /*@Operation(summary = "Modification d'un utilisateur => Permet à un utilisateur de modifier ces propres informations.")
     @PutMapping("/me")
     @PreAuthorize("hasRole('CLIENT') or hasRole('HOTE')")
     public ResponseEntity<Utilisateur> modifierUtilisateurByUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
         return ResponseEntity.ok(utilisateurService.modifierUtilisateur(id, utilisateur));
-    }
+    }*/
 
-    @Operation(summary = "Modification d'un utilisateur => Permet à un ADMIN de modifier les informations d’un utilisateur.")
+    /*@Operation(summary = "Modification d'un utilisateur => Permet à un ADMIN de modifier les informations d’un utilisateur.")
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Utilisateur> modifierUtilisateur(@PathVariable Long id, @RequestBody Utilisateur utilisateur) {
         return ResponseEntity.ok(utilisateurService.modifierUtilisateur(id, utilisateur));
-    }
+    }*/
 
     @Operation(summary = "Suppression d'un utilisateur => Permet uniquement à un ADMIN de supprimer définitivement un utilisateur.")
     @DeleteMapping("/{id}")
@@ -72,5 +73,29 @@ public class UtilisateurController {
     public ResponseEntity<Utilisateur> supprimerUtilisateur(@PathVariable Long id) {
         utilisateurService.supprimerUtilisateur(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "permet à un client de devenir hôte et pouvoir ajouter des annonces à lui")
+    @PostMapping("/me/devenir/hote")
+    @PreAuthorize("hasRole('CLIENT')")
+    public ResponseEntity<String> devenirHote(Authentication authentication) {
+
+        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
+
+        utilisateurService.ajouterRole(utilisateur.getId(), RoleType.ROLE_HOTE);
+
+        return ResponseEntity.ok("Vous êtes maintenant hôte aussi");
+    }
+
+    @Operation(summary = "permet à u hôte de devenir client, ce qui va lui permettre de reserver des annonces ..etc")
+    @PostMapping("/me/devenir/client")
+    @PreAuthorize("hasRole('HOTE')")
+    public ResponseEntity<String> devenirClient(Authentication authentication) {
+
+        Utilisateur utilisateur = (Utilisateur) authentication.getPrincipal();
+
+        utilisateurService.ajouterRole(utilisateur.getId(), RoleType.ROLE_CLIENT);
+
+        return ResponseEntity.ok("Vous êtes maintenant client aussi");
     }
 }

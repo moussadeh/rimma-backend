@@ -66,7 +66,7 @@ public class AuthController {
         utilisateur.setTelephone(request.getTelephone());
         utilisateur.setEmail(request.getEmail());
         utilisateur.setMotDePasse(passwordEncoder.encode(request.getMotDePasse()));
-        utilisateur.setRole(RoleType.ROLE_CLIENT);
+        utilisateur.getRoles().add(RoleType.ROLE_CLIENT);
         utilisateur.setActive(true);
 
         utilisateurRepository.save(utilisateur);
@@ -93,7 +93,7 @@ public class AuthController {
         utilisateur.setTelephone(request.getTelephone());
         utilisateur.setEmail(request.getEmail());
         utilisateur.setMotDePasse(passwordEncoder.encode(request.getMotDePasse()));
-        utilisateur.setRole(RoleType.ROLE_HOTE);
+        utilisateur.getRoles().add(RoleType.ROLE_HOTE);
         utilisateur.setActive(true);
 
         utilisateurRepository.save(utilisateur);

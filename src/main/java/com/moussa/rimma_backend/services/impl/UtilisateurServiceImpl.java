@@ -6,6 +6,7 @@ import com.moussa.rimma_backend.exceptions.UtilisateurNotFoundException;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
 import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
+import com.moussa.rimma_backend.models.enums.RoleType;
 import com.moussa.rimma_backend.repositories.UtilisateurRepository;
 import com.moussa.rimma_backend.services.UtilisateurService;
 import org.springframework.data.domain.Page;
@@ -36,7 +37,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateur.setNom(utilisateurRequest.getNom());
         utilisateur.setPrenom(utilisateurRequest.getPrenom());
         utilisateur.setTelephone(utilisateurRequest.getTelephone());
-        utilisateur.setRole(utilisateurRequest.getRole());
+        //utilisateur.setRole(utilisateurRequest.getRole());
         utilisateur.setEmail(utilisateurRequest.getEmail());
         utilisateur.setActive(true);
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateurRequest.getMotDePasse()));
@@ -56,7 +57,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         existingUtilisateur.setPrenom(utilisateur.getPrenom());
         existingUtilisateur.setTelephone(utilisateur.getTelephone());
         existingUtilisateur.setEmail(utilisateur.getEmail());
-        existingUtilisateur.setRole(utilisateur.getRole());
+        //existingUtilisateur.setRole(utilisateur.getRole());
         existingUtilisateur.setMotDePasse(utilisateur.getMotDePasse());
         existingUtilisateur.setActive(true);
 
@@ -75,7 +76,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         response.setNom(utilisateur.getNom());
         response.setPrenom(utilisateur.getPrenom());
         response.setEmail(utilisateur.getEmail());
-        response.setRole(utilisateur.getRole());
+        response.setRoles(utilisateur.getRoles());
         response.setTelephone(utilisateur.getTelephone());
         response.setActive(utilisateur.getActive());
 
@@ -91,7 +92,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             response.setPrenom(utilisateur.getPrenom());
             response.setEmail(utilisateur.getEmail());
             response.setTelephone(utilisateur.getTelephone());
-            response.setRole(utilisateur.getRole());
+            response.setRoles(utilisateur.getRoles());
             response.setActive(utilisateur.getActive());
             return response;
         });
@@ -107,5 +108,19 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     public Utilisateur trouverParEmail(String email) {
         return utilisateurRepository.findByEmail(email)
                 .orElseThrow(() -> new UtilisateurNotFoundException());
+    }
+
+    @Override
+    public void ajouterRole(Long userId, RoleType role) {
+        Utilisateur user = utilisateurRepository.findById(userId)
+                .orElseThrow(UtilisateurNotFoundException::new);
+
+        if (user.getRoles().contains(role)) {
+            throw new IllegalStateException("L'utilisateur possède déjà ce rôle");
+        }
+
+        user.getRoles().add(role);
+
+        utilisateurRepository.save(user);
     }
 }

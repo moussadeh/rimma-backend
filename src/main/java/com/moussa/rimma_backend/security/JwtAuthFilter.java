@@ -34,7 +34,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String header = request.getHeader("Authorization");
         final String token;
         final String email;
-        final String role;
+        //final String role;
 
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -43,14 +43,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         token = header.substring(7);
         email = jwtService.extractUsername(token);
-        role =  jwtService.extractRole(token);
+        //role =  jwtService.extractRole(token);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Utilisateur utilisateur = utilisateurRepository.findByEmail(email)
                     .orElseThrow(() -> new UtilisateurWithEmailNotFoundException(email));
 
-            if (utilisateur != null && jwtService.isTokenValid(token, utilisateur.getEmail())) {
-                List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
+            if (jwtService.isTokenValid(token, utilisateur.getEmail())) {
+                List<String> roles = jwtService.extractRoles(token);
+                List<SimpleGrantedAuthority> authorities = roles.stream()
+                        .map(SimpleGrantedAuthority::new)
+                        .toList();
+                //List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(role));
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(utilisateur, null, authorities);
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);

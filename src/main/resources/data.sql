@@ -7,15 +7,33 @@ TRUNCATE TABLE utilisateurs RESTART IDENTITY CASCADE;
 -- ===============================
 -- UTILISATEURS
 -- ===============================
-INSERT INTO utilisateurs (nom, prenom, email, telephone, mot_de_passe, role, active) VALUES
-    ('admin', 'admin', 'admin@admin.com', '770000001', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_ADMIN', true),
-    ('hote', 'hote', 'hote@hote.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_HOTE', true),
-    ('hote2', 'hote2', 'hote2@hote2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_HOTE', true),
-    ('hote3', 'hote3', 'hote3@hote3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_HOTE', true),
-    ('client', 'client', 'client@client.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_CLIENT', true),
-    ('client2', 'client2', 'client2@client2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_CLIENT', true),
-    ('client3', 'client3', 'client3@client3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', 'ROLE_CLIENT', true)
+INSERT INTO utilisateurs (nom, prenom, email, telephone, mot_de_passe, active) VALUES
+    ('admin', 'admin', 'admin@admin.com', '770000001', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote', 'hote', 'hote@hote.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote2', 'hote2', 'hote2@hote2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote3', 'hote3', 'hote3@hote3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client', 'client', 'client@client.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client2', 'client2', 'client2@client2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client3', 'client3', 'client3@client3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true)
 ;
+
+-- ===============================
+-- ROLES
+-- ===============================
+INSERT INTO utilisateur_roles (utilisateur_id, role) VALUES
+    (1, 'ROLE_ADMIN'),
+    (1, 'ROLE_CLIENT'),
+    (1, 'ROLE_HOTE'),
+    (2, 'ROLE_HOTE'),
+    (2, 'ROLE_CLIENT'),
+    (3, 'ROLE_HOTE'),
+    (4, 'ROLE_HOTE'),
+    (5, 'ROLE_HOTE'),
+    (5, 'ROLE_CLIENT'),
+    (6, 'ROLE_CLIENT'),
+    (7, 'ROLE_CLIENT')
+;
+
 
 -- ===============================
 -- ANNONCES

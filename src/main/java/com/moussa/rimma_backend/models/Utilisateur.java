@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,10 +36,15 @@ public class Utilisateur {
     @JsonIgnore
     private String motDePasse;
 
+//    @Enumerated(EnumType.STRING)
+//    @Column(length = 20)
+//    @JsonIgnore
+//    private RoleType role;
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
-    @JsonIgnore
-    private RoleType role;
+    @CollectionTable(name = "utilisateur_roles", joinColumns = @JoinColumn(name = "utilisateur_id"))
+    @Column(name = "role")
+    private Set<RoleType> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     @JsonIgnore

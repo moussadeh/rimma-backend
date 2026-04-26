@@ -3,6 +3,7 @@ package com.moussa.rimma_backend.services;
 import com.moussa.rimma_backend.models.Utilisateur;
 import com.moussa.rimma_backend.models.dto.UtilisateurRequest;
 import com.moussa.rimma_backend.models.dto.UtilisateurResponse;
+import com.moussa.rimma_backend.models.enums.RoleType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,4 +24,6 @@ public interface UtilisateurService {
     void supprimerUtilisateur(Long id);
 
     Utilisateur trouverParEmail(String email);
+
+    public void ajouterRole(Long userId, RoleType role);
 }
