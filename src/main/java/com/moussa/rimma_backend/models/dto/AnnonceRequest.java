@@ -21,5 +21,23 @@ public class AnnonceRequest {
     private String quartier;
     private HebergementType hebergement;
     private StatutType statut;
+
+    // options
+    private Double surface;
+    private Integer nombreChambres = null;
+    private Integer nombreSallesDeBain = null;
+    private Integer nombreEtages = null;
+    private Boolean isJardin = false;
+    private Boolean isPiscine = false;
+    private Boolean isAscenseur = false;
+    private Boolean isConstructible = false;
+    private Boolean isMeublee = false;
+    private Boolean isClimatisee = false;
+    private Boolean isWifi = false;
+    private Boolean isCloture = false;
+    private Boolean isAccesRoute = false;
+    private Boolean isElectricite = false;
+    private Boolean isEau = false;
+
     public List<String> images;
 }

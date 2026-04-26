@@ -51,15 +51,8 @@ public class AnnonceServiceImpl implements AnnonceService {
         List<Image> images = new ArrayList<>();
 
         Annonce annonce = new Annonce();
-        annonce.setTitre(annonceRequest.getTitre());
-        annonce.setDescription(annonceRequest.getDescription());
-        annonce.setPrix(annonceRequest.getPrix());
-        annonce.setVille(annonceRequest.getVille());
-        annonce.setQuartier(annonceRequest.getQuartier());
-        annonce.setHebergement(annonceRequest.getHebergement());
-        annonce.setStatut(annonceRequest.getStatut());
         annonce.setUtilisateur(utilisateur);
-        annonce.setActif(true);
+        fabriquerAnnonce(annonceRequest, annonce);
 
         urls_images.forEach(url -> {
             Image image = new Image();
@@ -73,19 +66,53 @@ public class AnnonceServiceImpl implements AnnonceService {
         return annonceRepository.save(annonce);
     }
 
+    private void fabriquerAnnonce(AnnonceRequest annonceRequest, Annonce annonce) {
+        annonce.setTitre(annonceRequest.getTitre());
+        annonce.setDescription(annonceRequest.getDescription());
+        annonce.setPrix(annonceRequest.getPrix());
+        annonce.setVille(annonceRequest.getVille());
+        annonce.setQuartier(annonceRequest.getQuartier());
+        annonce.setHebergement(annonceRequest.getHebergement());
+        annonce.setStatut(annonceRequest.getStatut());
+        annonce.setActif(true);
+
+        annonce.setSurface(annonceRequest.getSurface());
+        switch (annonceRequest.getHebergement()) {
+            case MAISON:
+            case APPARTEMENT:
+                annonce.setNombreChambres(annonceRequest.getNombreChambres());
+                annonce.setNombreSallesDeBain(annonceRequest.getNombreSallesDeBain());
+                annonce.setIsMeublee(annonceRequest.getIsMeublee());
+                annonce.setNombreEtages(annonceRequest.getNombreEtages());
+                annonce.setIsWifi(annonceRequest.getIsWifi());
+                annonce.setIsClimatisee(annonceRequest.getIsClimatisee());
+                annonce.setIsJardin(annonceRequest.getIsJardin());
+                annonce.setIsPiscine(annonceRequest.getIsPiscine());
+                annonce.setIsElectricite(annonceRequest.getIsElectricite());
+                annonce.setIsAscenseur(annonceRequest.getIsAscenseur());
+                annonce.setIsEau(annonceRequest.getIsEau());
+                break;
+            case BOUTIQUE:
+            case MAGASIN:
+                annonce.setIsAccesRoute(annonceRequest.getIsAccesRoute());
+                annonce.setIsElectricite(annonceRequest.getIsElectricite());
+                annonce.setIsEau(annonceRequest.getIsEau());
+                break;
+            case TERRAIN:
+                annonce.setIsConstructible(annonceRequest.getIsConstructible());
+                annonce.setIsCloture(annonceRequest.getIsCloture());
+                break;
+            default:
+                throw new IllegalArgumentException("Type d'hebergment non supporté");
+        }
+    }
+
     @Override
     public Annonce modifierAnnonce(Long annonceId, AnnonceRequest annonceRequest) {
         Annonce existingAnnonce = annonceRepository.findById(annonceId)
                 .orElseThrow(() -> new AnnonceNotFoundException());
 
-        existingAnnonce.setTitre(annonceRequest.getTitre());
-        existingAnnonce.setDescription(annonceRequest.getDescription());
-        existingAnnonce.setPrix(annonceRequest.getPrix());
-        existingAnnonce.setVille(annonceRequest.getVille());
-        existingAnnonce.setQuartier(annonceRequest.getQuartier());
-        existingAnnonce.setStatut(annonceRequest.getStatut());
-        existingAnnonce.setHebergement(annonceRequest.getHebergement());
-        existingAnnonce.setActif(true);
+        fabriquerAnnonce(annonceRequest, existingAnnonce);
 
         List<String> urls_images = annonceRequest.getImages();
 
@@ -249,7 +276,7 @@ public class AnnonceServiceImpl implements AnnonceService {
                 fields.add(new FieldOption("isAscenseur", "Ascenseur", "boolean"));
                 fields.add(new FieldOption("isJardin", "Jardin", "boolean"));
                 fields.add(new FieldOption("isElectricite", "Accès à l'éléctricité", "boolean"));
-                fields.add(new FieldOption("surface", "Accès à l'eau", "boolean"));
+                fields.add(new FieldOption("isEau", "Accès à l'eau", "boolean"));
                 break;
             case TERRAIN:
                 fields.add(new FieldOption("surface", "Surface (m²)", "double"));
@@ -261,7 +288,7 @@ public class AnnonceServiceImpl implements AnnonceService {
                 fields.add(new FieldOption("surface", "Surface (m²)", "integer"));
                 fields.add(new FieldOption("accesRoute", "Proche de route principale", "boolean"));
                 fields.add(new FieldOption("isElectricite", "Accès à l'éléctricité", "boolean"));
-                fields.add(new FieldOption("surface", "Accès à l'eau", "boolean"));
+                fields.add(new FieldOption("isEau", "Accès à l'eau", "boolean"));
                 break;
             default:
                 throw new IllegalArgumentException("Type d'hebergment non supporté");

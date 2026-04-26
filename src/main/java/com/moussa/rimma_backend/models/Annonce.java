@@ -58,7 +58,6 @@ public class Annonce {
     private List<Reservation> reservations = new ArrayList<>();
 
     // options
-
     @Column(nullable = true)
     private Double surface;
     @Column(nullable = true)
