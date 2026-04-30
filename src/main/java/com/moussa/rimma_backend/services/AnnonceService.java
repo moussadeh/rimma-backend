@@ -48,4 +48,6 @@ public interface AnnonceService {
     List<Annonce> getFavoris(Long utilisateurId);
 
     List<FieldOption> getOptionsByTypeHebergement(HebergementType type);
+
+    Page<Annonce> getNotValidAnnonces(Pageable pageable);
 }

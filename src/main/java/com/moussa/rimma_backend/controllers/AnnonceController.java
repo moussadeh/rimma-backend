@@ -6,8 +6,10 @@ import com.moussa.rimma_backend.models.dto.FieldOption;
 import com.moussa.rimma_backend.models.enums.HebergementType;
 import com.moussa.rimma_backend.services.AnnonceService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +32,15 @@ public class AnnonceController {
 
     @Operation(summary = "Récupération de toutes les annonces valides => Retourne la liste de toutes les annonces validées. Cette route est publique.")
     @GetMapping
-    public ResponseEntity<Page<Annonce>> getAnnonces(Pageable pageable) {
+    public ResponseEntity<Page<Annonce>> getAnnonces(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(annonceService.getAnnonces(pageable));
+    }
+
+    @Operation(summary = "Récupérations des annonces qui ne sont pas encore validés")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/not/valid")
+    public ResponseEntity<Page<Annonce>> getNotValidAnnonces(@ParameterObject Pageable pageable) {
+        return ResponseEntity.ok(annonceService.getNotValidAnnonces(pageable));
     }
 
     /*@Operation(summary = "Récupération des annonces d’un hôte => Permet à un ADMIN toutes les annonces associées à un hôte spécifique.")

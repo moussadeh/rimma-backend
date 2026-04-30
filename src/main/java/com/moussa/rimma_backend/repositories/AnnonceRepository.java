@@ -22,6 +22,8 @@ public interface AnnonceRepository extends JpaRepository<Annonce, Long> {
 
     Page<Annonce> findByValideTrue(Pageable pageable);
 
+    Page<Annonce> findByValideFalse(Pageable pageable);
+
     boolean existsByIdAndUtilisateurId(Long id, Long utilisateurId);
 
     @Query("""

@@ -38,22 +38,28 @@ INSERT INTO utilisateur_roles (utilisateur_id, role) VALUES
 -- ===============================
 -- ANNONCES
 -- ===============================
-INSERT INTO annonces (titre, description, prix, ville, quartier, actif, valide, hebergement, statut, utilisateur_id) VALUES
-    ('Appartement moderne', 'Bel appartement bien équipé', 25000, 'Nouakchott', 'Tevragh Zeina', true, true, 'APPARTEMENT', 'ACTIVE', 2),
-    ('Maison avec jardin', 'Grande maison familiale', 45000, 'Nouadhibou', 'Numerowat', true, true, 'MAISON', 'ACTIVE', 2),
-    ('Studio meublé', 'Studio idéal pour étudiant', 15000, 'Nouakchott', 'Capitale', true, true, 'APPARTEMENT', 'ACTIVE', 2),
-    ('Magasin commercial', 'Local commercial bien situé', 80000, 'Rosso', 'Centre', true, true, 'MAGASIN', 'ACTIVE', 2),
-    ('Terrain constructible', 'Terrain de 300m²', 120000, 'Nouakchott', 'PK9', true, true, 'TERRAIN', 'ACTIVE', 2),
-    ('Boutique équipée', 'Boutique prête à l’usage', 60000, 'Nouakchott', 'Madrid', true, true, 'BOUTIQUE', 'ACTIVE', 2),
-    ('Appartement spacieux', 'Appartement lumineux proche des commerces', 22000, 'Nouakchott', 'Sebkha', true, true, 'APPARTEMENT', 'ACTIVE', 2),
-    ('Studio moderne', 'Studio meublé prêt à habiter', 17000, 'Nouadhibou', 'Numerowat', true, true, 'APPARTEMENT', 'ACTIVE', 3),
-    ('Maison traditionnelle', 'Maison confortable dans quartier calme', 40000, 'Rosso', 'Centre', true, true, 'MAISON', 'ACTIVE', 3),
-    ('Studio simple', 'Studio pratique pour une personne', 12000, 'Nouakchott', 'Ksar', true, true, 'APPARTEMENT', 'ACTIVE', 3),
-    ('Magasin au centre ville', 'Magasin idéal pour commerce', 70000, 'Nouadhibou', 'Centre', true, true, 'MAGASIN', 'ACTIVE', 3),
-    ('Terrain à vendre', 'Terrain de 500m² dans une zone en développement', 95000, 'Nouakchott', 'Dar Naim', true, true, 'TERRAIN', 'ACTIVE', 3),
-    ('Boutique commerciale', 'Boutique bien placée au marché', 50000, 'Nouakchott', 'Sebkha', true, true, 'BOUTIQUE', 'ACTIVE', 4),
-    ('Appartement familial', 'Grand appartement pour famille', 30000, 'Nouakchott', 'Arafat', true, true, 'APPARTEMENT', 'ACTIVE', 4),
-    ('Maison moderne', 'Maison moderne avec cour et parking', 55000, 'Nouakchott', 'Tevragh Zeina', true, true, 'MAISON', 'ACTIVE', 4)
+INSERT INTO annonces (titre, description, prix, ville, quartier, actif, valide, hebergement, statut, utilisateur_id, created_at) VALUES
+    ('Appartement moderne', 'Bel appartement bien équipé', 25000, 'Nouakchott', 'Tevragh Zeina', true, true, 'APPARTEMENT', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Maison avec jardin', 'Grande maison familiale', 45000, 'Nouadhibou', 'Numerowat', true, true, 'MAISON', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Studio meublé', 'Studio idéal pour étudiant', 15000, 'Nouakchott', 'Capitale', true, true, 'APPARTEMENT', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Magasin commercial', 'Local commercial bien situé', 80000, 'Rosso', 'Centre', true, true, 'MAGASIN', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Terrain constructible', 'Terrain de 300m²', 120000, 'Nouakchott', 'PK9', true, true, 'TERRAIN', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Boutique équipée', 'Boutique prête à l’usage', 60000, 'Nouakchott', 'Madrid', true, true, 'BOUTIQUE', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Appartement spacieux', 'Appartement lumineux proche des commerces', 22000, 'Nouakchott', 'Sebkha', true, true, 'APPARTEMENT', 'ACTIVE', 2, '2026-04-01T10:00:00'),
+    ('Studio moderne', 'Studio meublé prêt à habiter', 17000, 'Nouadhibou', 'Numerowat', true, true, 'APPARTEMENT', 'ACTIVE', 3, '2026-04-01T10:00:00'),
+    ('Maison traditionnelle', 'Maison confortable dans quartier calme', 40000, 'Rosso', 'Centre', true, true, 'MAISON', 'ACTIVE', 3, '2026-04-01T10:00:00'),
+    ('Studio simple', 'Studio pratique pour une personne', 12000, 'Nouakchott', 'Ksar', true, true, 'APPARTEMENT', 'ACTIVE', 3, '2026-04-01T10:00:00'),
+    ('Magasin au centre ville', 'Magasin idéal pour commerce', 70000, 'Nouadhibou', 'Centre', true, true, 'MAGASIN', 'ACTIVE', 3, '2026-04-01T10:00:00'),
+    ('Terrain à vendre', 'Terrain de 500m² dans une zone en développement', 95000, 'Nouakchott', 'Dar Naim', true, true, 'TERRAIN', 'ACTIVE', 3, '2026-04-01T10:00:00'),
+    ('Boutique commerciale', 'Boutique bien placée au marché', 50000, 'Nouakchott', 'Sebkha', true, true, 'BOUTIQUE', 'ACTIVE', 4, '2026-04-01T10:00:00'),
+    ('Appartement familial', 'Grand appartement pour famille', 30000, 'Nouakchott', 'Arafat', true, true, 'APPARTEMENT', 'ACTIVE', 4, '2026-04-01T10:00:00'),
+    ('Maison moderne', 'Maison moderne avec cour et parking', 55000, 'Nouakchott', 'Tevragh Zeina', true, true, 'MAISON', 'ACTIVE', 4, '2026-04-01T10:00:00'),
+    ('test', 'test', 55000, 'Nouakchott', 'Tevragh Zeina', true, false, 'MAISON', 'ACTIVE', 4, '2026-04-01T10:00:00'),
+    ('test', 'test', 55000, 'Nouakchott', 'Tevragh Zeina', true, false, 'MAISON', 'ACTIVE', 4, '2026-04-02T10:00:00'),
+    ('test', 'test', 55000, 'Nouakchott', 'Tevragh Zeina', true, false, 'MAISON', 'ACTIVE', 4, '2026-04-03T10:00:00'),
+    ('test', 'test', 55000, 'Nouakchott', 'Tevragh Zeina', true, false, 'MAISON', 'ACTIVE', 4, '2026-04-05T10:00:00'),
+    ('test', 'test', 55000, 'Nouakchott', 'Tevragh Zeina', true, false, 'MAISON', 'ACTIVE', 4, '2026-04-04T10:00:00')
+
 ;
 
 -- ===============================

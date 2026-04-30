@@ -296,6 +296,11 @@ public class AnnonceServiceImpl implements AnnonceService {
         return fields;
     }
 
+    @Override
+    public Page<Annonce> getNotValidAnnonces(Pageable pageable) {
+        return annonceRepository.findByValideFalse(pageable);
+    }
+
 //    @Override
 //    public AnnonceResponse fabriquerAnnonceResponse(Annonce annonce) {
 //        AnnonceResponse annonceResponse = new AnnonceResponse();

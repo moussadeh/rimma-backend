@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,9 @@ public class Annonce {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private StatutType statut;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "utilisateur_id")
@@ -77,5 +81,10 @@ public class Annonce {
     private Boolean isAccesRoute = false;
     private Boolean isElectricite = false;
     private Boolean isEau = false;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 }
