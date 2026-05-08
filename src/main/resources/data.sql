@@ -8,13 +8,13 @@ TRUNCATE TABLE utilisateurs RESTART IDENTITY CASCADE;
 -- UTILISATEURS
 -- ===============================
 INSERT INTO utilisateurs (nom, prenom, email, telephone, mot_de_passe, active) VALUES
-    ('admin', 'admin', 'admin@admin.com', '770000001', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('hote', 'hote', 'hote@hote.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('hote2', 'hote2', 'hote2@hote2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('hote3', 'hote3', 'hote3@hote3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('client', 'client', 'client@client.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('client2', 'client2', 'client2@client2.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
-    ('client3', 'client3', 'client3@client3.com', '770000002', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true)
+    ('admin', 'admin', 'admin@admin.com', '41424344', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote', 'hote', 'hote@hote.com', '41424345', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote2', 'hote2', 'hote2@hote2.com', '41424346', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('hote3', 'hote3', 'hote3@hote3.com', '41424347', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client', 'client', 'client@client.com', '41424348', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client2', 'client2', 'client2@client2.com', '41424349', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true),
+    ('client3', 'client3', 'client3@client3.com', '41424350', '$2a$12$B96IdtAD8Th5FvTPRoMKruUHqAU0DIqPLsS/R4yitrg911xD4xBNa', true)
 ;
 
 -- ===============================
